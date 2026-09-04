@@ -1,8 +1,8 @@
-import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  turbopack: { root: path.dirname(new URL(import.meta.url).pathname.slice(1)) },
+  // Depo dışındaki package-lock.json'ı köke saymasın diye.
+  turbopack: { root: process.cwd() },
 };
 
 export default nextConfig;
