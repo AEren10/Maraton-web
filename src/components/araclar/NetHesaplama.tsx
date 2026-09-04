@@ -2,202 +2,155 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { SINAVLAR, type SinavKey } from "@/data/sinavlar";
+import {
+  ALAN_KEYS,
+  AYT_ALANLARI,
+  SINAVLAR,
+  dersleriGetir,
+  soruSayisi,
+  type AlanKey,
+  type SinavKey,
+} from "@/data/sinavlar";
 import { net, netYazi } from "@/lib/net";
-import { NetCubugu } from "../ui/NetCubugu";
-import { ISTATISTIK_KAYNAK, ortalamaBul } from "@/data/istatistik";
-import { Sayac } from "../ui/Sayac";
-import { PaylasKutusu } from "../PaylasKutusu";
 import { adresiGuncelle } from "@/lib/paylasim";
+import { PaylasKutusu } from "../PaylasKutusu";
+import { NetGirisTablosu, type Giris } from "./net/NetGirisTablosu";
+import { NetSonucu } from "./net/NetSonucu";
 
-type Giris = Record<string, { d: number; y: number }>;
-
-/** Adresteki `s` ve `n` parametrelerini sınav ve net girişlerine çevirir. */
-function cozumle(arama: string, varsayilan: SinavKey) {
+/** Adresteki alan ve net girişlerini çözer. */
+function cozumle(arama: string) {
   const p = new URLSearchParams(arama);
-  const gelenSinav = p.get("s") as SinavKey | null;
-  const sinav = gelenSinav && gelenSinav in SINAVLAR ? gelenSinav : varsayilan;
+  const gelenAlan = p.get("a") as AlanKey | null;
+  const alan: AlanKey = gelenAlan && ALAN_KEYS.includes(gelenAlan) ? gelenAlan : "sayisal";
   const giris: Giris = {};
   for (const parca of (p.get("n") ?? "").split(",")) {
     const [ad, d, y] = parca.split(":");
-    if (ad) giris[`${sinav}:${ad}`] = { d: Number(d) || 0, y: Number(y) || 0 };
+    if (ad) giris[ad] = { d: Number(d) || 0, y: Number(y) || 0 };
   }
-  return { sinav, giris };
+  return { alan, giris, diger: p.get("t") ?? "" };
 }
 
-export function NetHesaplama({ varsayilan = "tyt" as SinavKey }) {
-  const [durum, setDurum] = useState<{ sinav: SinavKey; giris: Giris }>({
-    sinav: varsayilan,
-    giris: {},
-  });
-  const { sinav, giris } = durum;
-  const setSinav = (s: SinavKey) => setDurum((d) => ({ ...d, sinav: s }));
+export function NetHesaplama({ sinav }: { sinav: SinavKey }) {
+  const [alan, setAlan] = useState<AlanKey>("sayisal");
+  const [giris, setGiris] = useState<Giris>({});
+  const [diger, setDiger] = useState("");
 
-  // Paylaşılan bağlantıdaki sonuç yalnızca ilk açılışta okunur; sonrasında
-  // adres tek yönlü olarak formdan güncellenir.
   useEffect(() => {
-    const gelen = cozumle(window.location.search, varsayilan);
-    if (Object.keys(gelen.giris).length === 0) return;
+    const gelen = cozumle(window.location.search);
+    if (Object.keys(gelen.giris).length === 0 && !gelen.diger) return;
     // eslint-disable-next-line react-hooks/set-state-in-effect -- adres bir kez okunur
-    setDurum(gelen);
-  }, [varsayilan]);
-  const dersler = SINAVLAR[sinav].dersler;
+    setAlan(gelen.alan);
+    setGiris(gelen.giris);
+    setDiger(gelen.diger);
+  }, []);
+
+  const dersler = useMemo(() => dersleriGetir(sinav, alan), [sinav, alan]);
+  const soru = soruSayisi(dersler);
 
   const toplamNet = useMemo(
     () =>
       Math.round(
         dersler.reduce((s, d) => {
-          const g = giris[`${sinav}:${d.ad}`] ?? { d: 0, y: 0 };
+          const g = giris[d.ad] ?? { d: 0, y: 0 };
           return s + net(g.d, g.y);
         }, 0) * 100
       ) / 100,
-    [dersler, giris, sinav]
+    [dersler, giris]
   );
 
-  // Adres bir dış sistem: React durumu değiştikçe onu senkronlamak efektin işi.
   useEffect(() => {
     const dolu = dersler
       .map((d) => {
-        const g = giris[`${sinav}:${d.ad}`];
+        const g = giris[d.ad];
         return g && (g.d || g.y) ? `${d.ad}:${g.d}:${g.y}` : null;
       })
       .filter(Boolean);
-    if (dolu.length) adresiGuncelle({ s: sinav, n: dolu.join(",") });
-  }, [giris, dersler, sinav]);
+    if (dolu.length) {
+      adresiGuncelle({
+        ...(sinav === "ayt" ? { a: alan } : {}),
+        n: dolu.join(","),
+        ...(diger ? { t: diger } : {}),
+      });
+    }
+  }, [giris, dersler, sinav, alan, diger]);
 
-  const paylasimAdresi =
-    typeof window === "undefined" ? "https://maratonapp.com" : window.location.href;
-
-  const yaz = (ad: string, alan: "d" | "y", v: number, soru: number) => {
-    const anahtar = `${sinav}:${ad}`;
-    const onceki = giris[anahtar] ?? { d: 0, y: 0 };
-    const yeni = { ...onceki, [alan]: Math.max(0, Math.min(v, soru)) };
-    if (yeni.d + yeni.y > soru) yeni[alan === "d" ? "y" : "d"] = soru - yeni[alan];
-    const guncel = { ...giris, [anahtar]: yeni };
-
-    setDurum((d) => ({ ...d, giris: guncel }));
+  const yaz = (ad: string, kolon: "d" | "y", v: number, soruSayi: number) => {
+    const onceki = giris[ad] ?? { d: 0, y: 0 };
+    const yeni = { ...onceki, [kolon]: Math.max(0, Math.min(v, soruSayi)) };
+    if (yeni.d + yeni.y > soruSayi) yeni[kolon === "d" ? "y" : "d"] = soruSayi - yeni[kolon];
+    setGiris({ ...giris, [ad]: yeni });
   };
-
-  const alan =
-    "sayi w-12 sm:w-14 rounded-[10px] border border-[var(--line)] bg-[var(--surface-elevated)] px-2 py-1.5 text-center text-[17px] outline-none";
 
   return (
     <div className="kart p-5 sm:p-7">
-      <div className="serit">
-        {(Object.keys(SINAVLAR) as SinavKey[]).map((k) => (
-          <button
-            key={k}
-            onClick={() => setSinav(k)}
-            className="kucuk-btn etiket rounded-[10px] border border-transparent px-4 py-2"
-            style={{
-              background: sinav === k ? "var(--surface-elevated)" : "transparent",
-              color: sinav === k ? "var(--text)" : "var(--text-muted)",
-            }}
-          >
-            {SINAVLAR[k].ad}
-          </button>
-        ))}
-      </div>
-
-      <div className="mt-6 grid grid-cols-[1fr_auto_auto_auto] items-center gap-x-2 sm:gap-x-3 gap-y-1">
-        <span />
-        <span className="etiket text-center">Doğru</span>
-        <span className="etiket text-center">Yanlış</span>
-        <span className="etiket text-right">Net</span>
-        {dersler.map((d) => {
-          const g = giris[`${sinav}:${d.ad}`] ?? { d: 0, y: 0 };
-          return (
-            <div key={d.ad} className="contents">
-              <span className="flex min-w-0 items-center gap-2.5 py-1.5">
-                <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: d.renk }} />
-                <span className="truncate text-[13px] sm:text-[14px] text-[var(--text-secondary)]">
-                  {d.ad}{" "}
-                  <span className="hidden text-[var(--text-muted)] sm:inline">/{d.soru}</span>
-                </span>
-              </span>
-              <input type="number" inputMode="numeric" autoComplete="off" className={alan} value={g.d || ""}
-                placeholder="0" aria-label={`${d.ad} doğru`}
-                onChange={(e) => yaz(d.ad, "d", Number(e.target.value), d.soru)} />
-              <input type="number" inputMode="numeric" autoComplete="off" className={alan} value={g.y || ""}
-                placeholder="0" aria-label={`${d.ad} yanlış`}
-                onChange={(e) => yaz(d.ad, "y", Number(e.target.value), d.soru)} />
-              <span className="sayi w-14 sm:w-16 text-right text-[15px] sm:text-[17px]">{netYazi(net(g.d, g.y))}</span>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="mt-7 grid gap-4 border-t border-[var(--line)] pt-6 sm:grid-cols-2">
-        {dersler.map((d) => {
-          const g = giris[`${sinav}:${d.ad}`] ?? { d: 0, y: 0 };
-          return (
-            <NetCubugu key={d.ad} ad={d.ad} renk={d.renk} tavan={d.soru}
-              deger={Math.max(net(g.d, g.y), 0)} ortalama={ortalamaBul(d.ad)} />
-          );
-        })}
-      </div>
-
-      <div className="mt-7 flex items-end justify-between border-t border-[var(--line)] pt-6">
-        <div>
-          <p className="etiket">{SINAVLAR[sinav].ad} neti</p>
-          <p
-            className="sayi bolum-sayi mt-2"
-            style={{
-              color: toplamNet > 0 ? "var(--brand)" : "var(--text-muted)",
-              textShadow: toplamNet > 0 ? "0 0 34px var(--brand-glow)" : "none",
-            }}
-          >
-            <Sayac deger={Math.trunc(toplamNet)} />
-            <span className="text-[22px] text-[var(--text-muted)]">
-              ,
-              {String(Math.abs(Math.round((toplamNet - Math.trunc(toplamNet)) * 100))).padStart(
-                2,
-                "0"
-              )}
-            </span>
+      {sinav === "ayt" ? (
+        <div className="mb-6">
+          <p className="etiket">Alanın</p>
+          <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-secondary)]">
+            AYT&apos;de herkes 80 soru çözer, hangi testleri çözdüğün alanına bağlı.
           </p>
+          <div className="serit mt-3 w-full">
+            {ALAN_KEYS.map((a) => (
+              <button
+                key={a}
+                onClick={() => setAlan(a)}
+                className="kucuk-btn etiket rounded-[10px] border px-4 py-2.5"
+                style={{
+                  borderColor: alan === a ? "var(--brand)" : "var(--line)",
+                  color: alan === a ? "var(--text)" : "var(--text-muted)",
+                }}
+              >
+                {AYT_ALANLARI[a].ad}
+              </button>
+            ))}
+          </div>
         </div>
-        <p className="etiket pb-3">
-          {SINAVLAR[sinav].dersler.reduce((s, d) => s + d.soru, 0)} soru ·{" "}
-          {SINAVLAR[sinav].sure} dk
-        </p>
-      </div>
-
-      <p className="mt-5 text-[12px] leading-relaxed text-[var(--text-muted)]">
-        Çubuklardaki ince çizgi 2025 Türkiye ortalaması. {ISTATISTIK_KAYNAK}
-      </p>
-
-      {toplamNet > 0 ? (
-        <PaylasKutusu
-          kaynak={`${sinav}-net`}
-          veri={{
-            arac: `${SINAVLAR[sinav].ad} net hesaplama`,
-            anaSayi: netYazi(toplamNet),
-            anaEtiket: `${SINAVLAR[sinav].ad} neti`,
-            satirlar: dersler
-              .filter((d) => {
-                const g = giris[`${sinav}:${d.ad}`];
-                return g && (g.d > 0 || g.y > 0);
-              })
-              .map((d) => {
-                const g = giris[`${sinav}:${d.ad}`] ?? { d: 0, y: 0 };
-                return [d.ad, netYazi(net(g.d, g.y))] as [string, string];
-              }),
-            url: paylasimAdresi,
-            metin: `${SINAVLAR[sinav].ad} netim ${netYazi(toplamNet)}.`,
-          }}
-        />
       ) : null}
 
+      <NetGirisTablosu dersler={dersler} giris={giris} onDegis={yaz} />
+
+      <NetSonucu
+        sinav={sinav}
+        dersler={dersler}
+        giris={giris}
+        toplamNet={toplamNet}
+        soru={soru}
+        sure={SINAVLAR[sinav].sure}
+        digerNet={diger}
+        onDigerNet={(v) => setDiger(String(v))}
+      />
+
       {toplamNet > 0 ? (
-        <div className="mt-6 kart kart-vurgu p-5">
-          <p className="text-[15px] text-[var(--text-secondary)]">
-            Peki bu netle nereye gidiyorsun?
-          </p>
-          <Link href="/hedef-net-rotasi" className="btn btn-brand mt-4 w-full">
-            {netYazi(toplamNet)}&apos;ten hedefime rotamı çıkar →
-          </Link>
-        </div>
+        <>
+          <PaylasKutusu
+            kaynak={`${sinav}-net`}
+            veri={{
+              arac: `${SINAVLAR[sinav].ad} net hesaplama${sinav === "ayt" ? ` · ${AYT_ALANLARI[alan].kisa}` : ""}`,
+              anaSayi: netYazi(toplamNet),
+              anaEtiket: `${SINAVLAR[sinav].ad} neti`,
+              satirlar: dersler
+                .filter((d) => {
+                  const g = giris[d.ad];
+                  return g && (g.d > 0 || g.y > 0);
+                })
+                .map((d) => {
+                  const g = giris[d.ad] ?? { d: 0, y: 0 };
+                  return [d.ad, netYazi(net(g.d, g.y))] as [string, string];
+                }),
+              url: typeof window === "undefined" ? "https://maratonapp.com" : window.location.href,
+              metin: `${SINAVLAR[sinav].ad} netim ${netYazi(toplamNet)}.`,
+            }}
+          />
+
+          <div className="kart kart-vurgu mt-6 p-5">
+            <p className="text-[15px] text-[var(--text-secondary)]">
+              Peki bu netle nereye gidiyorsun?
+            </p>
+            <Link href="/hedef-net-rotasi" className="btn btn-brand mt-4 w-full">
+              {netYazi(toplamNet)}&apos;ten hedefime rotamı çıkar →
+            </Link>
+          </div>
+        </>
       ) : null}
     </div>
   );

@@ -45,15 +45,15 @@ export const ARAC_ICERIK: Record<string, AracIcerik> = {
   },
 
   "ayt-net-hesaplama": {
-    rozet: "On bir ders ayrı ayrı",
+    rozet: "Alan bazlı · 80 soru",
     kisaCevap:
-      "AYT neti de doğru − yanlış ÷ 4 ile bulunur. AYT'de dört test vardır ve sen alanına göre 80 soruluk kısmı çözersin; sayısalcı Matematik 40 + Fen 40, eşit ağırlıkçı Matematik 40 + Edebiyat-Sosyal-1 40 yapar.",
+      "AYT neti de doğru − yanlış ÷ 4 ile bulunur. Ama AYT'de herkes aynı testleri çözmez: sayısalcı Matematik 40 + Fizik 14 + Kimya 13 + Biyoloji 13, eşit ağırlıkçı Matematik 40 + Edebiyat 24 + Tarih-1 10 + Coğrafya-1 6 çözer. Her alanda toplam 80 soru; hesaba başlamadan alanını seçmen gerekir.",
     tekBakista: [
       NET_KURALI,
       ["Soru sayısı", "80 soru · 180 dakika"],
-      ["Matematik", "40 soru · 2025 ortalaması 6,86"],
-      ["Fen", "Fizik 14 · Kimya 13 · Biyoloji 13"],
-      ["Edebiyat-Sosyal-1", "Edebiyat 24 · Tarih-1 10 · Coğrafya-1 6"],
+      ["Sayısal", "Matematik 40 · Fizik 14 · Kimya 13 · Biyoloji 13"],
+      ["Eşit Ağırlık", "Matematik 40 · Edebiyat 24 · Tarih-1 10 · Coğrafya-1 6"],
+      ["Sözel", "Edebiyat 24 · Tarih ve Coğrafya · Felsefe 12 · Din 6"],
       ["Ağırlık", "Yerleştirme puanının %60'ı AYT'den"],
     ],
     rehber: [
@@ -68,9 +68,9 @@ export const ARAC_ICERIK: Record<string, AracIcerik> = {
           "TYT netin 60'ı geçtiyse. 2025 AYT Matematik ortalamasının 6,86 olması, temeli olmadan AYT'ye giren adayların çokluğundan.",
       },
       {
-        baslik: "Alan dışı test çözülür mü?",
+        baslik: "Neden alan seçmek zorundayım?",
         metin:
-          "Çözebilirsin ama puan türüne katkısı olmaz. Sosyal Bilimler-2 sadece sözel ve eşit ağırlık puanına girer; sayısalcı için zaman kaybıdır.",
+          "AYT'de 160 soruluk bir kitapçık var ama sen 80'ini çözüyorsun. On bir testin hepsinin netini toplamak gerçek bir AYT neti vermez; alanına girmeyen testler puanına da katılmaz.",
       },
     ],
     ilgili: ["tyt-net-hesaplama", "hedef-net-rotasi", "tercih-robotu"],
@@ -333,9 +333,9 @@ export const ARAC_ICERIK: Record<string, AracIcerik> = {
   "tercih-robotu": {
     rozet: "2025 sıralarına göre",
     kisaCevap:
-      "Toplam netini gir, 2025 bantlarına göre yaklaşık sıranı ve o sırayla hangi bölümlerin açık olduğunu gör. Liste iki parçadır: sıranın yettiği bölümler ve az kalanlar. Bu bir tercih listesi değil, yön göstergesidir.",
+      "TYT ve AYT netini ayrı ayrı gir; sıralama ikisinin toplamından çıkar. 2025 bantlarına göre yaklaşık sıranı ve o sırayla hangi bölümlerin açık olduğunu gösterir. Liste iki parçadır: sıranın yettiği bölümler ve az kalanlar. Bu bir tercih listesi değil, yön göstergesidir.",
     tekBakista: [
-      ["Girdi", "Toplam net"],
+      ["Girdi", "TYT neti + AYT neti"],
       ["Çıktı", "Yaklaşık sıra + ulaşılabilir bölümler"],
       ["Kapsam", "28 bölüm · devlet üniversiteleri"],
       ["Alan filtresi", "Sayısal · Eşit Ağırlık · Sözel · Dil"],
@@ -352,6 +352,11 @@ export const ARAC_ICERIK: Record<string, AracIcerik> = {
         baslik: "Tercih dönemi robotu değil",
         metin:
           "Gerçek tercih, program bazlı kontenjan ve güncel taban verisiyle yapılır. Bu araç sınav öncesi “nereye doğru gidiyorum” sorusunu cevaplar; temmuzda YÖK Atlas'ı kullan.",
+      },
+      {
+        baslik: "Neden iki net soruyoruz?",
+        metin:
+          "Sıralama tek oturumla çıkmaz. Yerleştirme puanının %40'ı TYT'den, %60'ı AYT'den gelir; yalnızca TYT netiyle bakılan sıra gerçekte olduğundan geride görünür. AYT'ye girmeyeceksen boş bırakabilirsin, o zaman hesap önlisans mantığıyla çalışır.",
       },
       {
         baslik: "Netini artırırsan ne değişir?",

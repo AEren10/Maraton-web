@@ -15,7 +15,7 @@ import { RotaAkisiUrl } from "../rota/RotaAkisiUrl";
 export function AracGovdesi({ arac, kalanGun }: { arac: Arac; kalanGun: number }) {
   switch (arac.tur) {
     case "net":
-      return <NetHesaplama varsayilan={arac.varsayilan ?? "tyt"} />;
+      return <NetHesaplama sinav={arac.varsayilan ?? "tyt"} />;
     case "obp":
       return <ObpHesaplama />;
     case "puan":

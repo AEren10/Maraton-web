@@ -712,9 +712,9 @@ body {
   .arac-ikon {
     display: grid;
     place-items: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 13px;
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
     color: var(--aksan);
     background: color-mix(in srgb, var(--aksan) 15%, transparent);
     border: 1px solid color-mix(in srgb, var(--aksan) 28%, transparent);

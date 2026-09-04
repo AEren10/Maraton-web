@@ -26,10 +26,10 @@ export const ARACLAR: Arac[] = [
     tur: "net", varsayilan: "tyt",
   },
   {
-    slug: "ayt-net-hesaplama", veri: ["net", "ortalama"], kategori: "Net ve puan", populer: true, renk: "var(--fizik)", ozet: "On bir AYT dersi için ayrı net, altında toplam.", ad: "AYT net hesaplama", h1: "AYT netini hesapla",
+    slug: "ayt-net-hesaplama", veri: ["net", "ortalama"], kategori: "Net ve puan", populer: true, renk: "var(--fizik)", ozet: "Alanını seç, yalnızca çözdüğün 80 sorunun neti çıksın.", ad: "AYT net hesaplama", h1: "AYT netini hesapla",
     title: "AYT Net Hesaplama 2027 – Ders Bazlı | Maraton",
     description:
-      "AYT netini ders bazında hesapla. Matematik, Fizik, Kimya, Biyoloji, Edebiyat ve sosyal dersler ayrı ayrı.",
+      "Alanını seç, AYT netini ders ders hesapla. Sayısal, Eşit Ağırlık ve Sözel için ayrı ders listesi; 80 soruluk gerçek dağılım.",
     tur: "net", varsayilan: "ayt",
   },
   {
@@ -82,11 +82,11 @@ export const ARACLAR: Arac[] = [
     tur: "ortalama",
   },
   {
-    slug: "tercih-robotu", veri: ["siralama", "bolum"], kategori: "Sıralama ve tercih", populer: true, ozet: "Netini gir, 2025 sıra bandında hangi bölümlerin açık olduğunu gör.",
+    slug: "tercih-robotu", veri: ["siralama", "bolum"], kategori: "Sıralama ve tercih", populer: true, ozet: "TYT ve AYT netini gir, hangi bölümlerin açık olduğunu gör.",
     renk: "var(--brand-light)", ad: "Tercih robotu", h1: "Bu netle nereye girilir?",
     title: "Tercih Robotu 2027 – Bu Netle Nereye Girilir? | Maraton",
     description:
-      "Toplam netini gir, 2025 yerleştirme sıralarına göre hangi bölümlerin açık olduğunu ve hangilerine az kaldığını gör.",
+      "TYT ve AYT netini gir; 2025 yerleştirme sıralarına göre hangi bölümlerin açık olduğunu ve hangilerine az kaldığını gör.",
     tur: "tercih",
   },
   {

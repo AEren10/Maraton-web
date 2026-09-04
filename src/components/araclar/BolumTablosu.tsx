@@ -48,7 +48,7 @@ export function BolumTablosu() {
 
   return (
     <div className="kart p-5 sm:p-7">
-      <div className="serit">
+      <div className="serit w-full">
         {SEKMELER.map((s) => (
           <button
             key={s}
