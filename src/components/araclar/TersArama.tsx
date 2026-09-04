@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { BOLUMLER, BOLUM_KAYNAK, bolumAra, type Bolum } from "@/data/bolumler";
 import { netTahmini, tavandaMi } from "@/data/siralama";
+import { bolumSlug } from "@/data/programatik";
 
 export function TersArama() {
   const [q, setQ] = useState("");
@@ -102,9 +103,14 @@ export function TersArama() {
             </span>
           </div>
 
-          <Link href={`/hedef-net-rotasi?h=${gereken}`} className="btn btn-brand mt-6 w-full">
-            {gereken} netin rotasını çıkar →
-          </Link>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <Link href={`/bolum/${bolumSlug(secili)}`} className="btn btn-brand flex-1">
+              {secili.ad} sayfası →
+            </Link>
+            <Link href={`/hedef-net-rotasi?h=${gereken}`} className="btn btn-sessiz flex-1">
+              {gereken} netin rotasını çıkar
+            </Link>
+          </div>
 
           <p className="mt-5 text-[12px] leading-relaxed text-[var(--text-muted)]">
             {BOLUM_KAYNAK}

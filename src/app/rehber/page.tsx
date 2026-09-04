@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { BILGI, BILGI_KATEGORILERI, bilgiKategorisi } from "@/data/bilgi";
 
 export const metadata: Metadata = {
-  title: "YKS Rehberi – Net, OBP ve Baraj | Maraton",
+  title: "YKS Rehberi 2027 – 40 Başlık | Maraton",
   description:
-    "Net nasıl hesaplanır, OBP kaç puan ekler, TYT barajı kaç, hangi ders daha hızlı yükselir? On iki konu, kısa ve sayılı.",
+    "Net nasıl hesaplanır, OBP kaç puan ekler, TYT barajı kaç, tercih nasıl yapılır, sınav günü ne değişir? Kırk başlık, kısa ve sayılı.",
   alternates: { canonical: "/rehber" },
 };
 
@@ -14,8 +14,9 @@ export default function RehberSayfasi() {
       <h1 className="text-[clamp(28px,5vw,44px)]">Rehber</h1>
       <div className="metin mt-5 max-w-[640px] text-[17px]">
         <p>
-          On iki başlık, üç bölüm. Sınavın kuralları, yapısı ve çalışma düzeni. Sırayla
-          okunmak zorunda değil; aradığın konuya soldaki listeden atlayabilirsin.
+          Kırk başlık, beş bölüm: sınavın kuralları, testlerin yapısı, çalışma düzeni,
+          tercih ve sınav dönemi. Sırayla okunmak zorunda değil; aradığın konuya soldaki
+          listeden atlayabilirsin.
         </p>
       </div>
 

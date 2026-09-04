@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ALANLAR, BOLUMLER, BOLUM_KAYNAK, type Alan, type Bolum } from "@/data/bolumler";
 import { netTahmini, tavandaMi } from "@/data/siralama";
+import { bolumSlug } from "@/data/programatik";
 
 const SEKMELER: ("Hepsi" | Alan)[] = ["Hepsi", ...ALANLAR];
 
@@ -15,7 +16,7 @@ function Satir({ b }: { b: Bolum }) {
     <li className="border-b border-[var(--line-soft)] py-4 last:border-0">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
         <Link
-          href={`/hedef-net-rotasi?h=${kolay}`}
+          href={`/bolum/${bolumSlug(b)}`}
           className="min-w-0 flex-1 text-[15px] font-medium hover:text-[var(--brand-light)]"
         >
           {b.ad}

@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 import { ARACLAR } from "@/data/araclar";
+import { BOLUMLER } from "@/data/bolumler";
+import { NETLER, ROTALAR, bolumSlug, netSlug, rotaSlug } from "@/data/programatik";
 
 const SITE = "https://maratonapp.com";
 
@@ -18,6 +20,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: guncelleme,
       changeFrequency: "weekly" as const,
       priority: a.tur === "rota" ? 0.9 : 0.7,
+    })),
+    ...BOLUMLER.map((b) => ({
+      url: `${SITE}/bolum/${bolumSlug(b)}`,
+      lastModified: guncelleme,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+    ...NETLER.map((n) => ({
+      url: `${SITE}/net/${netSlug(n)}`,
+      lastModified: guncelleme,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+    ...ROTALAR.map((r) => ({
+      url: `${SITE}/net-rotasi/${rotaSlug(r.bas, r.son)}`,
+      lastModified: guncelleme,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
   ];
 }

@@ -6,7 +6,20 @@ import { trendCikar } from "@/lib/trend";
 import { sayiYazi } from "@/lib/net";
 import { Stat } from "../ui/Kart";
 import { Sayac } from "../ui/Sayac";
-import { TrendGrafigi, type TrendNoktasi } from "../grafik/TrendGrafigi";
+import dynamic from "next/dynamic";
+import type { TrendNoktasi } from "../grafik/TrendGrafigi";
+
+// Recharts paketin en ağır parçası ve yalnızca burada kullanılıyor;
+// grafik görünene kadar indirilmesin.
+const TrendGrafigi = dynamic(
+  () => import("../grafik/TrendGrafigi").then((m) => m.TrendGrafigi),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[220px] w-full animate-pulse rounded-[14px] bg-[var(--surface-elevated)]" />
+    ),
+  }
+);
 
 export function TempoAraci({ kalanGun }: { kalanGun: number }) {
   const [denemeler, setDenemeler] = useState<string[]>(["", "", ""]);

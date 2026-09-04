@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { SIRALAMA, SIRALAMA_KAYNAK } from "@/data/siralama";
+import { NET_ARALIGI, netSlug } from "@/data/programatik";
 
 export function SiralamaTablosu() {
   return (
@@ -16,7 +18,16 @@ export function SiralamaTablosu() {
         <tbody>
           {SIRALAMA.map((s) => (
             <tr key={s.net} className="border-b border-[var(--line-soft)] last:border-0">
-              <td className="sayi px-6 py-3.5 text-[19px]">{s.net}</td>
+              <td className="px-6 py-3.5">
+                {s.net >= NET_ARALIGI.en_az && s.net <= NET_ARALIGI.en_cok ? (
+                  <Link href={`/net/${netSlug(s.net)}`}
+                    className="sayi text-[19px] hover:text-[var(--brand-light)]">
+                    {s.net}
+                  </Link>
+                ) : (
+                  <span className="sayi text-[19px]">{s.net}</span>
+                )}
+              </td>
               <td className="sayi px-6 py-3.5 text-right text-[19px] text-[var(--text-secondary)]">
                 {s.siraYazi}
               </td>

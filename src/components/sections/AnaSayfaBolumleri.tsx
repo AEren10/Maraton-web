@@ -22,8 +22,8 @@ export function AnaSayfaBolumleri({ kalanGun }: { kalanGun: number }) {
 
       <Bolum
         etiket="Rehber"
-        baslik="Sık karıştırılan on iki konu"
-        alt="Sınavın kuralları, testlerin yapısı ve çalışma düzeni. Üç bölüm, on iki konu."
+        baslik="Kırk başlık, beş bölüm"
+        alt="Sınavın kuralları, testlerin yapısı, çalışma düzeni, tercih ve sınav günü."
       >
         <BilgiKartlari />
         <p className="mt-8">
