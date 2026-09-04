@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { BOLUM_KAYNAK, tercihListesi, type Bolum } from "@/data/bolumler";
 import { siraTahminiSayi } from "@/data/siralama";
 import { Sayac } from "../ui/Sayac";
+import { PaylasKutusu } from "../PaylasKutusu";
 
 const ALANLAR = ["Hepsi", "Sayısal", "Eşit Ağırlık", "Sözel", "Dil"] as const;
 
@@ -106,6 +107,22 @@ export function TercihRobotu() {
           </ul>
         </div>
       ) : null}
+
+      <PaylasKutusu
+        kaynak="tercih-robotu"
+        veri={{
+          arac: "Tercih robotu",
+          anaSayi: sira.toLocaleString("tr-TR"),
+          anaEtiket: `${sayi} netin 2025 sıra karşılığı`,
+          satirlar: [
+            ["Net", String(sayi)],
+            ["Açılan bölüm", `${girer.length}`],
+            ["Alan", alan],
+          ],
+          url: "https://maratonapp.com/tercih-robotu",
+          metin: `${sayi} net 2025'te yaklaşık ${sira.toLocaleString("tr-TR")}. sıraya denk geliyordu.`,
+        }}
+      />
 
       <Link href={`/hedef-net-rotasi?h=${Math.min(Math.round(sayi) + 12, 120)}`}
         className="btn btn-brand mt-7 w-full">

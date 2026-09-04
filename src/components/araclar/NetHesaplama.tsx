@@ -1,18 +1,46 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SINAVLAR, type SinavKey } from "@/data/sinavlar";
 import { net, netYazi } from "@/lib/net";
 import { NetCubugu } from "../ui/NetCubugu";
 import { ISTATISTIK_KAYNAK, ortalamaBul } from "@/data/istatistik";
 import { Sayac } from "../ui/Sayac";
+import { PaylasKutusu } from "../PaylasKutusu";
+import { adresiGuncelle } from "@/lib/paylasim";
 
 type Giris = Record<string, { d: number; y: number }>;
 
+/** Adresteki `s` ve `n` parametrelerini sınav ve net girişlerine çevirir. */
+function cozumle(arama: string, varsayilan: SinavKey) {
+  const p = new URLSearchParams(arama);
+  const gelenSinav = p.get("s") as SinavKey | null;
+  const sinav = gelenSinav && gelenSinav in SINAVLAR ? gelenSinav : varsayilan;
+  const giris: Giris = {};
+  for (const parca of (p.get("n") ?? "").split(",")) {
+    const [ad, d, y] = parca.split(":");
+    if (ad) giris[`${sinav}:${ad}`] = { d: Number(d) || 0, y: Number(y) || 0 };
+  }
+  return { sinav, giris };
+}
+
 export function NetHesaplama({ varsayilan = "tyt" as SinavKey }) {
-  const [sinav, setSinav] = useState<SinavKey>(varsayilan);
-  const [giris, setGiris] = useState<Giris>({});
+  const [durum, setDurum] = useState<{ sinav: SinavKey; giris: Giris }>({
+    sinav: varsayilan,
+    giris: {},
+  });
+  const { sinav, giris } = durum;
+  const setSinav = (s: SinavKey) => setDurum((d) => ({ ...d, sinav: s }));
+
+  // Paylaşılan bağlantıdaki sonuç yalnızca ilk açılışta okunur; sonrasında
+  // adres tek yönlü olarak formdan güncellenir.
+  useEffect(() => {
+    const gelen = cozumle(window.location.search, varsayilan);
+    if (Object.keys(gelen.giris).length === 0) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- adres bir kez okunur
+    setDurum(gelen);
+  }, [varsayilan]);
   const dersler = SINAVLAR[sinav].dersler;
 
   const toplamNet = useMemo(
@@ -26,14 +54,29 @@ export function NetHesaplama({ varsayilan = "tyt" as SinavKey }) {
     [dersler, giris, sinav]
   );
 
-  const yaz = (ad: string, alan: "d" | "y", v: number, soru: number) =>
-    setGiris((s) => {
-      const anahtar = `${sinav}:${ad}`;
-      const onceki = s[anahtar] ?? { d: 0, y: 0 };
-      const yeni = { ...onceki, [alan]: Math.max(0, Math.min(v, soru)) };
-      if (yeni.d + yeni.y > soru) yeni[alan === "d" ? "y" : "d"] = soru - yeni[alan];
-      return { ...s, [anahtar]: yeni };
-    });
+  // Adres bir dış sistem: React durumu değiştikçe onu senkronlamak efektin işi.
+  useEffect(() => {
+    const dolu = dersler
+      .map((d) => {
+        const g = giris[`${sinav}:${d.ad}`];
+        return g && (g.d || g.y) ? `${d.ad}:${g.d}:${g.y}` : null;
+      })
+      .filter(Boolean);
+    if (dolu.length) adresiGuncelle({ s: sinav, n: dolu.join(",") });
+  }, [giris, dersler, sinav]);
+
+  const paylasimAdresi =
+    typeof window === "undefined" ? "https://maratonapp.com" : window.location.href;
+
+  const yaz = (ad: string, alan: "d" | "y", v: number, soru: number) => {
+    const anahtar = `${sinav}:${ad}`;
+    const onceki = giris[anahtar] ?? { d: 0, y: 0 };
+    const yeni = { ...onceki, [alan]: Math.max(0, Math.min(v, soru)) };
+    if (yeni.d + yeni.y > soru) yeni[alan === "d" ? "y" : "d"] = soru - yeni[alan];
+    const guncel = { ...giris, [anahtar]: yeni };
+
+    setDurum((d) => ({ ...d, giris: guncel }));
+  };
 
   const alan =
     "sayi w-12 sm:w-14 rounded-[10px] border border-[var(--line)] bg-[var(--surface-elevated)] px-2 py-1.5 text-center text-[17px] outline-none";
@@ -123,6 +166,28 @@ export function NetHesaplama({ varsayilan = "tyt" as SinavKey }) {
       <p className="mt-5 text-[12px] leading-relaxed text-[var(--text-muted)]">
         Çubuklardaki ince çizgi 2025 Türkiye ortalaması. {ISTATISTIK_KAYNAK}
       </p>
+
+      {toplamNet > 0 ? (
+        <PaylasKutusu
+          kaynak={`${sinav}-net`}
+          veri={{
+            arac: `${SINAVLAR[sinav].ad} net hesaplama`,
+            anaSayi: netYazi(toplamNet),
+            anaEtiket: `${SINAVLAR[sinav].ad} neti`,
+            satirlar: dersler
+              .filter((d) => {
+                const g = giris[`${sinav}:${d.ad}`];
+                return g && (g.d > 0 || g.y > 0);
+              })
+              .map((d) => {
+                const g = giris[`${sinav}:${d.ad}`] ?? { d: 0, y: 0 };
+                return [d.ad, netYazi(net(g.d, g.y))] as [string, string];
+              }),
+            url: paylasimAdresi,
+            metin: `${SINAVLAR[sinav].ad} netim ${netYazi(toplamNet)}.`,
+          }}
+        />
+      ) : null}
 
       {toplamNet > 0 ? (
         <div className="mt-6 kart kart-vurgu p-5">

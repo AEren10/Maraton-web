@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { DERSLER, toplam, type Netler } from "@/lib/dersler";
 import { rotaQuery } from "@/lib/url";
-import { Buton, ButonLink } from "../ui/Buton";
+import { ButonLink } from "../ui/Buton";
+import { PaylasKutusu } from "../PaylasKutusu";
 import { olay } from "../Olcum";
 
 export function RotaKarti({
@@ -15,24 +15,7 @@ export function RotaKarti({
   artis: Netler;
   hedef: number;
 }) {
-  const [durum, setDurum] = useState<"hazir" | "kopyalandi">("hazir");
   const link = `https://maratonapp.com/rota?${rotaQuery(hedef, mevcut)}`;
-
-  const paylas = async () => {
-    olay("rota_paylasildi", { hedef });
-    const metin = `${Math.round(toplam(mevcut))} → ${hedef} net. Rotam burada:`;
-    if (typeof navigator !== "undefined" && navigator.share) {
-      try {
-        await navigator.share({ title: "Rotam", text: metin, url: link });
-        return;
-      } catch {
-        /* kullanıcı vazgeçti */
-      }
-    }
-    await navigator.clipboard?.writeText(link);
-    setDurum("kopyalandi");
-    setTimeout(() => setDurum("hazir"), 2200);
-  };
 
   return (
     <div className="kart overflow-hidden">
@@ -57,11 +40,21 @@ export function RotaKarti({
         ))}
       </ul>
 
-      <div className="flex flex-col gap-3 px-6 pb-6 pt-2 sm:flex-row">
-        <Buton className="flex-1" onClick={paylas}>
-          {durum === "kopyalandi" ? "Bağlantı kopyalandı" : "Rotamı paylaş"}
-        </Buton>
-        <ButonLink tur="sessiz" className="flex-1" href="/maraton"
+      <div className="px-6 pb-6 pt-2">
+        <PaylasKutusu
+          kaynak="hedef-rotasi"
+          veri={{
+            arac: "Hedef net rotası",
+            anaSayi: `+${Math.round(hedef - toplam(mevcut))}`,
+            anaEtiket: "hedef farkı",
+            satirlar: DERSLER.map(
+              (d) => [d.ad, `${mevcut[d.key]} → ${mevcut[d.key] + artis[d.key]}`] as [string, string]
+            ),
+            url: link,
+            metin: `${Math.round(toplam(mevcut))} → ${hedef} net. Rotam burada:`,
+          }}
+        />
+        <ButonLink tur="sessiz" className="mt-4 w-full" href="/maraton"
           onClick={() => olay("maraton_cta_tiklandi")}>
           Maraton&apos;da devam et
         </ButonLink>
