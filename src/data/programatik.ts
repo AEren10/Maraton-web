@@ -56,11 +56,13 @@ export const benzerBolumler = (b: Bolum) =>
 
 /* ---------- "X netten Y nete" rota sayfaları ---------- */
 
+// Öğrenciler yuvarlak hedefler arıyor: "54 netten 72 nete" gibi. Başlangıç
+// her net olabilir, hedef ise tipik hedeflerden biri.
 const BASLANGIC = Array.from({ length: 46 }, (_, i) => 40 + i);
-const ARTIS = [10, 15, 20];
+const HEDEFLER = [60, 65, 70, 72, 75, 80, 85, 90, 100];
 
 export const ROTALAR = BASLANGIC.flatMap((bas) =>
-  ARTIS.map((fark) => ({ bas, son: bas + fark })).filter((r) => r.son <= 110)
+  HEDEFLER.filter((son) => son - bas >= 6 && son - bas <= 40).map((son) => ({ bas, son }))
 );
 
 export const rotaSlug = (bas: number, son: number) => `${bas}-netten-${son}-nete`;
