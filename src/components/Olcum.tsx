@@ -1,17 +1,27 @@
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const ALAN = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
 
-/** Çerezsiz sayaç. Alan adı tanımlı değilse hiçbir istek çıkmaz. */
+/**
+ * Ölçüm. Vercel Analytics ve Speed Insights çerez kullanmaz, kişisel veri
+ * saklamaz; Plausible ise yalnızca alan adı tanımlıysa devreye girer.
+ */
 export function Olcum() {
-  if (!ALAN) return null;
   return (
-    <Script
-      defer
-      data-domain={ALAN}
-      src="https://plausible.io/js/script.js"
-      strategy="afterInteractive"
-    />
+    <>
+      <Analytics />
+      <SpeedInsights />
+      {ALAN ? (
+        <Script
+          defer
+          data-domain={ALAN}
+          src="https://plausible.io/js/script.js"
+          strategy="afterInteractive"
+        />
+      ) : null}
+    </>
   );
 }
 
