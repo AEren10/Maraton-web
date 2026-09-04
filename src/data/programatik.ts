@@ -95,16 +95,47 @@ export function ornekDagilim(toplam: number) {
 
 /* ---------- bölüm karşılaştırma sayfaları ---------- */
 
+/** Öğrencilerin gerçekten yan yana koyduğu, sıra bandı uzak olsa da aranan çiftler. */
+const ELLE_CIFTLER: [string, string][] = [
+  ["Tıp", "Diş Hekimliği"],
+  ["Tıp", "Eczacılık"],
+  ["Tıp", "Veterinerlik"],
+  ["Diş Hekimliği", "Eczacılık"],
+  ["Hukuk", "Psikoloji"],
+  ["Bilgisayar Mühendisliği", "Yazılım Mühendisliği"],
+  ["Bilgisayar Mühendisliği", "Elektrik-Elektronik Mühendisliği"],
+  ["Endüstri Mühendisliği", "Makine Mühendisliği"],
+  ["Psikoloji", "Rehberlik ve Psikolojik Danışmanlık"],
+  ["Hemşirelik", "Fizyoterapi ve Rehabilitasyon"],
+  ["İşletme", "İktisat"],
+];
+
 /** Aynı alandan, sıra bandı birbirine yakın bölüm çiftleri. */
 export const KARSILASTIRMALAR = (() => {
   const ciftler: { a: Bolum; b: Bolum }[] = [];
+  const eklendi = new Set<string>();
+  const ekle = (a?: Bolum, b?: Bolum) => {
+    if (!a || !b || a.ad === b.ad) return;
+    const anahtar = [a.ad, b.ad].sort().join("|");
+    if (eklendi.has(anahtar)) return;
+    eklendi.add(anahtar);
+    ciftler.push(a.ustSira <= b.ustSira ? { a, b } : { a: b, b: a });
+  };
+
+  for (const [x, y] of ELLE_CIFTLER) {
+    ekle(
+      BOLUMLER.find((b) => b.ad === x),
+      BOLUMLER.find((b) => b.ad === y)
+    );
+  }
+
   for (const alan of ["Sayısal", "Eşit Ağırlık", "Sözel", "Dil"] as const) {
     const liste = BOLUMLER.filter((x) => x.alan === alan).sort(
       (x, y) => x.ustSira - y.ustSira
     );
     for (let i = 0; i < liste.length; i++) {
       for (let j = i + 1; j < Math.min(i + 4, liste.length); j++) {
-        ciftler.push({ a: liste[i], b: liste[j] });
+        ekle(liste[i], liste[j]);
       }
     }
   }
