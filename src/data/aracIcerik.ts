@@ -234,7 +234,7 @@ export const ARAC_ICERIK: Record<string, AracIcerik> = {
   },
 
   "deneme-ortalamasi": {
-    rozet: "Dalgalanma aralığıyla",
+    rozet: "Kayıtlar tarayıcında kalır",
     kisaCevap:
       "Deneme ortalaması, netlerinin toplamının deneme sayısına bölümüdür. Ama referans alınması gereken sayı genel ortalama değil, son üç denemenin ortalamasıdır; eski denemeler artık senin seviyeni göstermez.",
     tekBakista: [

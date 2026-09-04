@@ -75,7 +75,7 @@ export const ARACLAR: Arac[] = [
     tur: "gunsayaci",
   },
   {
-    slug: "deneme-ortalamasi", veri: ["net"], kategori: "Hedef ve tempo", renk: "var(--cografya)", ozet: "Netlerini yapıştır, ortalama ve dalgalanma aralığı çıksın.", ad: "Deneme ortalaması", h1: "Deneme ortalaman kaç?",
+    slug: "deneme-ortalamasi", veri: ["net"], kategori: "Hedef ve tempo", renk: "var(--cografya)", ozet: "Denemelerini kaydet, ortalama ve trend kendiliğinden çıksın.", ad: "Deneme ortalaması", h1: "Deneme ortalaman kaç?",
     title: "Deneme Ortalaması Hesaplama 2027 | Maraton",
     description:
       "Deneme netlerini gir, ortalamanı ve dalgalanma aralığını gör. Tek deneme değil, ortalama konuşur.",

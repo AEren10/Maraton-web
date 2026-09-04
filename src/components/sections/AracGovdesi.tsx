@@ -1,4 +1,5 @@
 import type { Arac } from "@/data/araclar";
+import { DenemeGecmisi } from "../araclar/DenemeGecmisi";
 import { DenemeOrtalamasi } from "../araclar/DenemeOrtalamasi";
 import { GeriSayim } from "../araclar/GeriSayim";
 import { NetHesaplama } from "../araclar/NetHesaplama";
@@ -22,11 +23,21 @@ export function AracGovdesi({ arac, kalanGun }: { arac: Arac; kalanGun: number }
     case "rota":
       return <RotaAkisiUrl kalanGun={kalanGun} />;
     case "tempo":
-      return <TempoAraci kalanGun={kalanGun} />;
+      return (
+        <div className="flex flex-col gap-6">
+          <TempoAraci kalanGun={kalanGun} />
+          <DenemeGecmisi />
+        </div>
+      );
     case "gunsayaci":
       return <GeriSayim kalanGun={kalanGun} />;
     case "ortalama":
-      return <DenemeOrtalamasi />;
+      return (
+        <div className="flex flex-col gap-6">
+          <DenemeGecmisi />
+          <DenemeOrtalamasi />
+        </div>
+      );
     case "siralama":
       return <SiralamaTablosu />;
     case "tercih":
