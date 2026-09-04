@@ -1,15 +1,13 @@
 import { BILGI, BILGI_KATEGORILERI, bilgiKategorisi, type BilgiKarti } from "@/data/bilgi";
 import { Beliriyor } from "../Beliriyor";
 
-const sira = (baslik: string) => BILGI.findIndex((b) => b.baslik === baslik) + 1;
-
 function Liste({ konular }: { konular: BilgiKarti[] }) {
   return (
     <Beliriyor kademe className="mt-2">
-      {konular.map((k) => (
+      {konular.map((k, i) => (
         <article key={k.baslik} className="konu">
           <span className="konu-no" aria-hidden>
-            {String(sira(k.baslik)).padStart(2, "0")}
+            {String(i + 1).padStart(2, "0")}
           </span>
           <div>
             <h3 className="konu-baslik">{k.baslik}</h3>

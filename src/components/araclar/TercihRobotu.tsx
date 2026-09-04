@@ -10,18 +10,18 @@ const ALANLAR = ["Hepsi", "Sayısal", "Eşit Ağırlık", "Sözel", "Dil"] as co
 
 function Satir({ b, girer }: { b: Bolum; girer: boolean }) {
   return (
-    <li className="flex items-center justify-between gap-4 border-b border-[var(--line-soft)] py-3 last:border-0">
-      <div className="min-w-0">
-        <p className="truncate text-[15px]">{b.ad}</p>
-        <p className="etiket mt-1">
-          {b.alan}
-          {b.ustPuan ? ` · en üst taban ${b.ustPuan} (${b.ustOrnek})` : ""}
-        </p>
+    <li className="border-b border-[var(--line-soft)] py-3.5 last:border-0">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <p className="min-w-0 flex-1 text-[15px]">{b.ad}</p>
+        <span className="sayi shrink-0 text-[15px]"
+          style={{ color: girer ? "var(--up)" : "var(--down)" }}>
+          {b.ustSira.toLocaleString("tr-TR")} – {b.sonSira.toLocaleString("tr-TR")}
+        </span>
       </div>
-      <span className="sayi shrink-0 text-right text-[15px]"
-        style={{ color: girer ? "var(--up)" : "var(--down)" }}>
-        {b.ustSira.toLocaleString("tr-TR")} – {b.sonSira.toLocaleString("tr-TR")}
-      </span>
+      <p className="etiket mt-1.5">
+        {b.alan}
+        {b.ustPuan ? ` · en üst taban ${b.ustPuan} (${b.ustOrnek})` : ""}
+      </p>
     </li>
   );
 }
@@ -37,19 +37,20 @@ export function TercihRobotu() {
 
   return (
     <div className="kart p-5 sm:p-7">
-      <div className="flex flex-wrap items-end gap-4">
+      <div className="flex flex-col gap-5">
         <label className="block">
-          <span className="etiket">Toplam netin</span>
+          <span className="etiket block">Toplam netin</span>
           <input
             type="number"
             inputMode="numeric"
+            autoComplete="off"
             value={net}
             aria-label="Toplam net"
             onChange={(e) => setNet(e.target.value)}
-            className="giris sayi mt-2 w-28 text-center text-[28px]"
+            className="giris sayi mt-2 w-full max-w-[160px] text-center text-[28px]"
           />
         </label>
-        <div className="flex flex-wrap gap-2">
+        <div className="serit">
           {ALANLAR.map((a) => (
             <button
               key={a}

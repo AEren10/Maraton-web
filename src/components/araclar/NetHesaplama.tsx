@@ -40,7 +40,7 @@ export function NetHesaplama({ varsayilan = "tyt" as SinavKey }) {
 
   return (
     <div className="kart p-5 sm:p-7">
-      <div className="flex gap-2">
+      <div className="serit">
         {(Object.keys(SINAVLAR) as SinavKey[]).map((k) => (
           <button
             key={k}
@@ -72,10 +72,10 @@ export function NetHesaplama({ varsayilan = "tyt" as SinavKey }) {
                   <span className="hidden text-[var(--text-muted)] sm:inline">/{d.soru}</span>
                 </span>
               </span>
-              <input type="number" inputMode="numeric" className={alan} value={g.d || ""}
+              <input type="number" inputMode="numeric" autoComplete="off" className={alan} value={g.d || ""}
                 placeholder="0" aria-label={`${d.ad} doğru`}
                 onChange={(e) => yaz(d.ad, "d", Number(e.target.value), d.soru)} />
-              <input type="number" inputMode="numeric" className={alan} value={g.y || ""}
+              <input type="number" inputMode="numeric" autoComplete="off" className={alan} value={g.y || ""}
                 placeholder="0" aria-label={`${d.ad} yanlış`}
                 onChange={(e) => yaz(d.ad, "y", Number(e.target.value), d.soru)} />
               <span className="sayi w-14 sm:w-16 text-right text-[15px] sm:text-[17px]">{netYazi(net(g.d, g.y))}</span>

@@ -28,6 +28,7 @@ export function NetGirisiAlani({
           value={deger === 0 ? "" : deger}
           placeholder="0"
           aria-label={`${ad} neti`}
+          autoComplete="off"
           onChange={(e) => {
             const v = Number(e.target.value);
             onChange(Math.max(0, Math.min(Number.isFinite(v) ? v : 0, tavan)));

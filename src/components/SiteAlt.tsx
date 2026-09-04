@@ -7,12 +7,12 @@ export function SiteAlt() {
       <div className="sinir py-12">
         <nav aria-label="Araçlar">
           <p className="etiket">Araçlar</p>
-          <ul className="mt-5 grid gap-x-8 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-3 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
             {ARACLAR.map((a) => (
               <li key={a.slug}>
                 <Link
                   href={`/${a.slug}`}
-                  className="text-[14px] text-[var(--text-secondary)] hover:text-[var(--text)]"
+                  className="liste-baglanti text-[14px] text-[var(--text-secondary)] hover:text-[var(--text)]"
                 >
                   {a.ad}
                 </Link>
@@ -21,7 +21,7 @@ export function SiteAlt() {
           </ul>
         </nav>
 
-        <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-[var(--line-soft)] pt-6">
+        <ul className="mt-8 flex flex-wrap gap-x-6 border-t border-[var(--line-soft)] pt-4">
           {[
             ["/rehber", "Rehber"],
             ["/veriler", "Veri kaynakları"],
@@ -30,7 +30,7 @@ export function SiteAlt() {
             ["mailto:merhaba@maratonapp.com", "İletişim"],
           ].map(([href, ad]) => (
             <li key={href}>
-              <Link href={href} className="text-[14px] text-[var(--text-muted)] hover:text-[var(--text)]">
+              <Link href={href} className="liste-baglanti text-[14px] text-[var(--text-muted)] hover:text-[var(--text)]">
                 {ad}
               </Link>
             </li>

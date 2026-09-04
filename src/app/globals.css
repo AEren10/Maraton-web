@@ -54,9 +54,14 @@
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
+  /* iOS'ta yatay kaydırma ve çift dokunmayla yakınlaştırma gecikmesi olmasın */
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
   background: var(--ink);
   color: var(--text);
   font-family: var(--font-govde), system-ui, sans-serif;
@@ -73,8 +78,29 @@ select {
 }
 
 button,
-a {
+a,
+label,
+summary,
+input[type="range"] {
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Uzun kelimeler dar ekranda taşmasın */
+h1,
+h2,
+h3,
+p,
+li,
+dd,
+dt,
+summary {
+  overflow-wrap: break-word;
+}
+
+h1,
+h2 {
+  text-wrap: balance;
 }
 
 ::selection {
@@ -429,7 +455,7 @@ input[type="number"] {
 
   .kirp {
     transform-box: view-box;
-    transform-origin: 620px 0;
+    transform-origin: var(--kirp-x, 620px) 0;
     transform: scaleX(0);
     animation: kirp-ac 850ms cubic-bezier(0.33, 0.9, 0.4, 1) forwards;
     animation-delay: 2300ms;
@@ -645,6 +671,8 @@ input[type="number"] {
 }
 
 body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
   background:
     radial-gradient(900px 520px at 78% -8%, rgba(236, 51, 71, 0.10), transparent 62%),
     radial-gradient(700px 420px at 4% 6%, rgba(88, 167, 250, 0.06), transparent 60%),

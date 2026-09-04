@@ -48,7 +48,7 @@ export function GeriSayimRozeti({ kalanGun }: { kalanGun: number }) {
       </div>
 
       <p className="mt-3 text-[13px] text-[var(--text-muted)]">
-        {hafta} hafta · {tarih}
+        {hafta.toLocaleString("tr-TR")} hafta · {tarih}
       </p>
     </div>
   );

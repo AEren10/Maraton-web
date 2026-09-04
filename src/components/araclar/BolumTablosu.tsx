@@ -3,37 +3,38 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ALANLAR, BOLUMLER, BOLUM_KAYNAK, type Alan, type Bolum } from "@/data/bolumler";
-import { netTahmini } from "@/data/siralama";
+import { netTahmini, tavandaMi } from "@/data/siralama";
 
 const SEKMELER: ("Hepsi" | Alan)[] = ["Hepsi", ...ALANLAR];
 
 function Satir({ b }: { b: Bolum }) {
   const kolay = netTahmini(b.sonSira);
   const zor = netTahmini(b.ustSira);
+  const zorYazi = tavandaMi(b.ustSira) ? `${zor}+` : String(zor);
   return (
-    <li className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-[var(--line-soft)] py-4 last:border-0">
-      <div className="min-w-0">
+    <li className="border-b border-[var(--line-soft)] py-4 last:border-0">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
         <Link
           href={`/hedef-net-rotasi?h=${kolay}`}
-          className="text-[15px] font-medium hover:text-[var(--brand-light)]"
+          className="min-w-0 flex-1 text-[15px] font-medium hover:text-[var(--brand-light)]"
         >
           {b.ad}
         </Link>
-        <p className="etiket mt-1.5">
+        <p className="shrink-0 text-right">
+          <span className="sayi text-[19px]">
+            {kolay} <span className="text-[var(--text-muted)]">–</span> {zorYazi}
+          </span>
+          <span className="etiket ml-2">net</span>
+        </p>
+      </div>
+      <p className="etiket mt-2">
           {b.alan} · {b.ustSira.toLocaleString("tr-TR")} – {b.sonSira.toLocaleString("tr-TR")}. sıra
-          {b.dogrulanmis ? (
-            <span style={{ color: "var(--up)" }}> · doğrulanmış</span>
-          ) : (
-            <span style={{ color: "var(--warn)" }}> · yaklaşık</span>
-          )}
-        </p>
-      </div>
-      <div className="text-right">
-        <p className="sayi text-[19px]">
-          {kolay} <span className="text-[var(--text-muted)]">–</span> {zor}
-        </p>
-        <p className="etiket mt-1">net</p>
-      </div>
+        {b.dogrulanmis ? (
+          <span style={{ color: "var(--up)" }}> · doğrulanmış</span>
+        ) : (
+          <span style={{ color: "var(--warn)" }}> · yaklaşık</span>
+        )}
+      </p>
     </li>
   );
 }
@@ -46,7 +47,7 @@ export function BolumTablosu() {
 
   return (
     <div className="kart p-5 sm:p-7">
-      <div className="flex flex-wrap gap-2">
+      <div className="serit">
         {SEKMELER.map((s) => (
           <button
             key={s}
@@ -76,7 +77,9 @@ export function BolumTablosu() {
       <p className="mt-6 border-t border-[var(--line)] pt-5 text-[13px] leading-relaxed text-[var(--text-muted)]">
         Soldaki iki sayı devlet üniversitelerinde en üst programın ve son yerleşenin 2025
         başarı sırası. Sağdaki net aralığı bu sıraların karşılığı: alt sınır o bölümde bir
-        yere yerleşmek, üst sınır en iyi programa girmek için. {BOLUM_KAYNAK}
+        yere yerleşmek, üst sınır en iyi programa girmek için. Artı işaretli üst sınırlar
+        sıralama tablosunun en üst bandına dayanıyor; o noktadan yukarısı net üzerinden
+        okunamıyor. {BOLUM_KAYNAK}
       </p>
     </div>
   );

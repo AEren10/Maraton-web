@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Sayac } from "../ui/Sayac";
 import { tempo } from "@/lib/tempo";
+import { sayiYazi } from "@/lib/net";
 
 export function GeriSayim({ kalanGun }: { kalanGun: number }) {
   const [mevcut, setMevcut] = useState("54");
@@ -22,7 +23,7 @@ export function GeriSayim({ kalanGun }: { kalanGun: number }) {
           <p className="sayi bolum-sayi mt-2">
             <Sayac deger={kalanGun} /> <span className="text-[var(--text-muted)]">gün</span>
           </p>
-          <p className="mt-2 text-[13px] text-[var(--text-muted)]">{hafta} hafta</p>
+          <p className="mt-2 text-[13px] text-[var(--text-muted)]">{sayiYazi(hafta)} hafta</p>
         </div>
         <div>
           <p className="etiket">Hedef farkı</p>
@@ -33,28 +34,28 @@ export function GeriSayim({ kalanGun }: { kalanGun: number }) {
         </div>
       </div>
 
-      <div className="mt-7 flex flex-wrap items-center gap-3 border-t border-[var(--line)] pt-6">
+      <div className="mt-7 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 gap-y-3 border-t border-[var(--line)] pt-6 sm:flex sm:flex-wrap">
         <span className="etiket">Şu an</span>
-        <input type="number" inputMode="numeric" className={alan} value={mevcut}
+        <input type="number" inputMode="numeric" className={`${alan} w-full sm:w-20`} value={mevcut}
           aria-label="Mevcut net" onChange={(e) => setMevcut(e.target.value)} />
         <span className="etiket">Hedef</span>
-        <input type="number" inputMode="numeric" className={alan} value={hedef}
+        <input type="number" inputMode="numeric" className={`${alan} w-full sm:w-20`} value={hedef}
           aria-label="Hedef net" onChange={(e) => setHedef(e.target.value)} />
       </div>
 
       <dl className="mt-6 grid grid-cols-2 gap-4">
         <div>
           <dt className="etiket">Ayda gereken</dt>
-          <dd className="sayi kart-sayi mt-1">{t.aylik}</dd>
+          <dd className="sayi kart-sayi mt-1">{sayiYazi(t.aylik)}</dd>
         </div>
         <div>
           <dt className="etiket">Haftada gereken</dt>
-          <dd className="sayi kart-sayi mt-1">{t.haftalik}</dd>
+          <dd className="sayi kart-sayi mt-1">{sayiYazi(t.haftalik)}</dd>
         </div>
       </dl>
 
       <p className="mt-6 text-[15px] text-[var(--text-secondary)]">
-        Haftada yarım net. Söylenince küçük, {hafta} hafta üst üste yapınca {Math.round(fark)}.
+        Haftada yarım net. Söylenince küçük, {sayiYazi(hafta)} hafta üst üste yapınca {Math.round(fark)}.
       </p>
     </div>
   );

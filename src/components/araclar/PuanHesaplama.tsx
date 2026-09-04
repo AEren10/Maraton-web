@@ -36,7 +36,7 @@ export function PuanHesaplama() {
           className="sayi w-24 rounded-[10px] border border-[var(--line)] bg-[var(--surface-elevated)] px-2 py-1.5 text-center text-[19px] outline-none" />
       </label>
 
-      <div className="kart kart-vurgu mt-7 p-6">
+      <div className="kart kart-vurgu mt-7 p-5 sm:p-6">
         <p className="etiket">Yaklaşık TYT puanı</p>
         <p className="mt-3 flex items-baseline gap-3">
           <span

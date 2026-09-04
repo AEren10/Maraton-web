@@ -29,7 +29,7 @@ export default function RehberSayfasi() {
                   <li key={b.baslik}>
                     <a
                       href={`#konu-${BILGI.indexOf(b)}`}
-                      className="text-[14px] text-[var(--text-secondary)] hover:text-[var(--text)]"
+                      className="liste-baglanti text-[14px] text-[var(--text-secondary)] hover:text-[var(--text)]"
                     >
                       {b.baslik}
                     </a>
@@ -44,10 +44,10 @@ export default function RehberSayfasi() {
           {BILGI_KATEGORILERI.map((k) => (
             <section key={k} className="mt-12 first:mt-0">
               <h2 className="etiket border-b border-[var(--line)] pb-3">{k}</h2>
-              {bilgiKategorisi(k).map((b) => (
+              {bilgiKategorisi(k).map((b, i) => (
                 <article key={b.baslik} id={`konu-${BILGI.indexOf(b)}`} className="konu scroll-mt-24">
                   <span className="konu-no" aria-hidden>
-                    {String(BILGI.indexOf(b) + 1).padStart(2, "0")}
+                    {String(i + 1).padStart(2, "0")}
                   </span>
                   <div>
                     <h3 className="konu-baslik">{b.baslik}</h3>

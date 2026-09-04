@@ -1,6 +1,7 @@
 "use client";
 
 import { tempo } from "@/lib/tempo";
+import { sayiYazi } from "@/lib/net";
 
 const DURAKLAR = [60, 65, 70, 75, 80, 90, 100];
 
@@ -55,7 +56,7 @@ export function HedefSlider({
       </div>
 
       <p className="mt-5 text-[14px] text-[var(--text-secondary)]">
-        Ayda {t.aylik} net, haftada {t.haftalik}. {t.cumle}
+        Ayda {sayiYazi(t.aylik)} net, haftada {sayiYazi(t.haftalik)}. {t.cumle}
       </p>
     </div>
   );

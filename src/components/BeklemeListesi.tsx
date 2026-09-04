@@ -66,6 +66,8 @@ export function BeklemeListesi({
           onChange={(e) => setEposta(e.target.value)}
           placeholder="eposta@ornek.com"
           aria-label="E-posta adresin"
+          autoComplete="email"
+          spellCheck={false}
           className="giris flex-1"
         />
         <button type="submit" className="btn btn-brand shrink-0" disabled={durum === "gonderiliyor"}>

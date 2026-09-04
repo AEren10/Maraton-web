@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { BOLUMLER, BOLUM_KAYNAK, bolumAra, type Bolum } from "@/data/bolumler";
-import { netTahmini } from "@/data/siralama";
+import { netTahmini, tavandaMi } from "@/data/siralama";
 
 export function TersArama() {
   const [q, setQ] = useState("");
@@ -12,18 +12,21 @@ export function TersArama() {
   const sonuc = bolumAra(q);
   const kolay = secili ? netTahmini(secili.sonSira) : 0;
   const zor = secili ? netTahmini(secili.ustSira) : 0;
+  const zorYazi = secili && tavandaMi(secili.ustSira) ? `${zor}+` : String(zor);
   const gereken = kolay;
   const fark = secili ? Math.round(gereken - Number(benim || 0)) : 0;
 
   return (
     <div className="kart p-5 sm:p-7">
       <label className="block">
-        <span className="etiket">Bölüm ara</span>
+        <span className="etiket block">Bölüm ara</span>
         <input
           className="giris mt-2"
           value={q}
           placeholder="Bilgisayar Mühendisliği"
           aria-label="Bölüm adı"
+          autoComplete="off"
+          spellCheck={false}
           onChange={(e) => {
             setQ(e.target.value);
             setSecili(null);
@@ -77,7 +80,7 @@ export function TersArama() {
           <div className="kart kart-vurgu mt-5 p-5">
             <p className="etiket">Gereken net (2025 karşılığı)</p>
             <p className="sayi mt-2 text-[38px]" style={{ color: "var(--brand)" }}>
-              ~{kolay} <span className="text-[var(--text-muted)]">–</span> ~{zor}
+              ~{kolay} <span className="text-[var(--text-muted)]">–</span> ~{zorYazi}
             </p>
             <p className="mt-2 text-[13px] text-[var(--text-secondary)]">
               Alt sınır bir yere yerleşmek, üst sınır en iyi programa girmek için.

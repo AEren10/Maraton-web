@@ -17,6 +17,9 @@ export const SIRALAMA_KAYNAK =
   "Kaynak: ÖSYM / YÖK Atlas, 2025 yerleştirme sonuçları. Geçmiş yıl verisi; bu yılın sonucu farklı olur.";
 
 /** Sıra bandından geriye doğru: bu sıraya yaklaşık kaç net gerekiyordu? */
+/** Tahmin, tablonun en üst bandına dayandı mı? O noktadan yukarısı okunamaz. */
+export const tavandaMi = (sira: number) => sira <= SIRALAMA[SIRALAMA.length - 1].sira;
+
 export function netTahmini(sira: number) {
   const s = SIRALAMA;
   if (sira >= s[0].sira) return s[0].net;

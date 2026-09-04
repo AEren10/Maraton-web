@@ -18,7 +18,7 @@ export function ObpHesaplama() {
   return (
     <div className="kart p-5 sm:p-7">
       <label className="block">
-        <span className="etiket">Diploma notun</span>
+        <span className="etiket block">Diploma notun</span>
         <input
           type="number"
           inputMode="decimal"
@@ -43,7 +43,7 @@ export function ObpHesaplama() {
         />
       </label>
 
-      <div className="kart kart-vurgu mt-7 p-6">
+      <div className="kart kart-vurgu mt-7 p-5 sm:p-6">
         <p className="etiket">Puanına eklenecek</p>
         <p className="mt-3 flex items-baseline gap-3">
           <span

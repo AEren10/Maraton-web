@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { trendCikar } from "@/lib/trend";
+import { sayiYazi } from "@/lib/net";
 import { Stat } from "../ui/Kart";
 import { Sayac } from "../ui/Sayac";
 import { TrendGrafigi, type TrendNoktasi } from "../grafik/TrendGrafigi";
@@ -34,7 +35,7 @@ export function TempoAraci({ kalanGun }: { kalanGun: number }) {
   return (
     <div className="kart p-5 sm:p-7">
       <p className="etiket">Son üç denemenin toplam neti</p>
-      <div className="mt-3 grid grid-cols-3 gap-2.5">
+      <div className="mt-3 grid grid-cols-3 gap-2">
         {denemeler.map((d, i) => (
           <input key={i} type="number" inputMode="decimal" className={alan} value={d}
             placeholder={["58", "62", "65"][i]} aria-label={`${i + 1}. deneme neti`}
@@ -46,12 +47,12 @@ export function TempoAraci({ kalanGun }: { kalanGun: number }) {
 
       <div className="mt-5 grid grid-cols-2 gap-2.5">
         <label className="block">
-          <span className="etiket">Kaç haftaya yayıldı</span>
+          <span className="etiket block">Kaç haftaya yayıldı</span>
           <input type="number" inputMode="numeric" className={`${alan} mt-2`} value={hafta}
             aria-label="Denemelerin yayıldığı hafta" onChange={(e) => setHafta(e.target.value)} />
         </label>
         <label className="block">
-          <span className="etiket">Sınava kalan gün</span>
+          <span className="etiket block">Sınava kalan gün</span>
           <input type="number" inputMode="numeric" className={`${alan} mt-2`} value={gun}
             aria-label="Sınava kalan gün" onChange={(e) => setGun(e.target.value)} />
         </label>
@@ -59,7 +60,7 @@ export function TempoAraci({ kalanGun }: { kalanGun: number }) {
 
       {dolu ? (
         <>
-          <div className="kart kart-vurgu mt-7 p-6">
+          <div className="kart kart-vurgu mt-7 p-5 sm:p-6">
             <p className="etiket">Bu tempoyla sınav günü</p>
             <p className="mt-3 flex items-baseline gap-3">
               <span
@@ -78,7 +79,7 @@ export function TempoAraci({ kalanGun }: { kalanGun: number }) {
             </div>
           </div>
 
-          <div className="mt-5 grid grid-cols-3 gap-4">
+          <div className="mt-5 grid grid-cols-3 gap-3 sm:gap-4">
             <Stat etiket="Tempo artarsa" deger={t.tempoArtarsa} renk="var(--up)" />
             <Stat etiket="Bu tempoyla" deger={t.buTempoyla} />
             <Stat etiket="Düşüş olursa" deger={t.dususOlursa} renk="var(--down)" />
@@ -90,7 +91,7 @@ export function TempoAraci({ kalanGun }: { kalanGun: number }) {
 
           <p className="mt-4 text-[14px] text-[var(--text-secondary)]">
             Bu bir tahmin değil, mevcut trendinin devamı. Trend değişirse sonuç değişir.
-            Ayda {t.aylikArtis} net gidiyorsun, {t.kalanAy} ay kaldı. Tavana yaklaştıkça artış yavaşlar; projeksiyon bunu hesaba katıyor.
+            Ayda {sayiYazi(t.aylikArtis)} net gidiyorsun, {sayiYazi(t.kalanAy)} ay kaldı. Tavana yaklaştıkça artış yavaşlar; projeksiyon bunu hesaba katıyor.
           </p>
 
           <div className="ic-kart mt-6 p-5">

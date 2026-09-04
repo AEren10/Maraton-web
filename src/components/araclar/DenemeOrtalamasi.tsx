@@ -21,7 +21,7 @@ export function DenemeOrtalamasi() {
   return (
     <div className="kart p-5 sm:p-7">
       <label className="block">
-        <span className="etiket">Deneme netlerin</span>
+        <span className="etiket block">Deneme netlerin</span>
         <textarea
           className="giris sayi mt-2 h-24 resize-none text-[19px]"
           value={ham}
