@@ -23,6 +23,7 @@ export function SiteAlt() {
 
         <ul className="mt-8 flex flex-wrap gap-x-6 border-t border-[var(--line-soft)] pt-4">
           {[
+            ["/yks-2027-takvimi", "YKS 2027 takvimi"],
             ["/rehber", "Rehber"],
             ["/veriler", "Veri kaynakları"],
             ["/sss", "Sık sorulan sorular"],

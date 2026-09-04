@@ -7,7 +7,15 @@ import { TekBakista } from "@/components/arac/TekBakista";
 import { JsonLd } from "@/components/JsonLd";
 import { VeriRozeti } from "@/components/VeriRozeti";
 import { BOLUMLER, BOLUM_KAYNAK } from "@/data/bolumler";
-import { benzerBolumler, bolumNetleri, bolumSlug, bolumSlugCoz, netSlug } from "@/data/programatik";
+import {
+  benzerBolumler,
+  bolumNetleri,
+  bolumSlug,
+  bolumSlugCoz,
+  bolumunKarsilastirmalari,
+  karsilastirmaSlug,
+  netSlug,
+} from "@/data/programatik";
 import { kirintiYolu } from "@/lib/schema";
 
 export const revalidate = 21600;
@@ -40,6 +48,7 @@ export default async function BolumSayfasi({ params }: { params: Promise<{ slug:
 
   const { kolay, zorYazi } = bolumNetleri(b);
   const benzer = benzerBolumler(b);
+  const karsilastirmalar = bolumunKarsilastirmalari(b);
 
   return (
     <>
@@ -121,7 +130,23 @@ export default async function BolumSayfasi({ params }: { params: Promise<{ slug:
           </>
         ) : null}
 
-        <BolumBasligi no="03" ad="Kaynak" />
+        {karsilastirmalar.length > 0 ? (
+          <>
+            <BolumBasligi no="03" ad="Karşılaştır" />
+            <ul className="mt-6 flex flex-wrap gap-2.5">
+              {karsilastirmalar.map((c) => (
+                <li key={karsilastirmaSlug(c.a, c.b)}>
+                  <Link href={`/karsilastir/${karsilastirmaSlug(c.a, c.b)}`}
+                    className="btn btn-sessiz px-4 py-2.5 text-[14px]">
+                    {c.a.ad} mı {c.b.ad} mi?
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : null}
+
+        <BolumBasligi no="04" ad="Kaynak" />
         <div className="mt-2">
           <VeriRozeti anahtarlar={["bolum", "siralama"]} />
           <p className="mt-4 text-[13px] leading-relaxed text-[var(--text-muted)]">{BOLUM_KAYNAK}</p>

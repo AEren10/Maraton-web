@@ -1,7 +1,15 @@
 import type { MetadataRoute } from "next";
 import { ARACLAR } from "@/data/araclar";
 import { BOLUMLER } from "@/data/bolumler";
-import { NETLER, ROTALAR, bolumSlug, netSlug, rotaSlug } from "@/data/programatik";
+import {
+  KARSILASTIRMALAR,
+  NETLER,
+  ROTALAR,
+  bolumSlug,
+  karsilastirmaSlug,
+  netSlug,
+  rotaSlug,
+} from "@/data/programatik";
 
 const SITE = "https://maratonapp.com";
 
@@ -12,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: SITE, lastModified: guncelleme, changeFrequency: "weekly", priority: 1 },
     { url: `${SITE}/araclar`, lastModified: guncelleme, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE}/rehber`, lastModified: guncelleme, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE}/yks-2027-takvimi`, lastModified: guncelleme, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE}/veriler`, lastModified: guncelleme, changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE}/sss`, lastModified: guncelleme, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE}/maraton`, lastModified: guncelleme, changeFrequency: "monthly", priority: 0.5 },
@@ -38,6 +47,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: guncelleme,
       changeFrequency: "monthly" as const,
       priority: 0.6,
+    })),
+    ...KARSILASTIRMALAR.map((c) => ({
+      url: `${SITE}/karsilastir/${karsilastirmaSlug(c.a, c.b)}`,
+      lastModified: guncelleme,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
     })),
   ];
 }

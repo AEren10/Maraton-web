@@ -92,3 +92,31 @@ export function ornekDagilim(toplam: number) {
   ham.matematik = Math.min(Math.max(ham.matematik + fark, 0), tavan.matematik);
   return ham;
 }
+
+/* ---------- bölüm karşılaştırma sayfaları ---------- */
+
+/** Aynı alandan, sıra bandı birbirine yakın bölüm çiftleri. */
+export const KARSILASTIRMALAR = (() => {
+  const ciftler: { a: Bolum; b: Bolum }[] = [];
+  for (const alan of ["Sayısal", "Eşit Ağırlık", "Sözel", "Dil"] as const) {
+    const liste = BOLUMLER.filter((x) => x.alan === alan).sort(
+      (x, y) => x.ustSira - y.ustSira
+    );
+    for (let i = 0; i < liste.length; i++) {
+      for (let j = i + 1; j < Math.min(i + 4, liste.length); j++) {
+        ciftler.push({ a: liste[i], b: liste[j] });
+      }
+    }
+  }
+  return ciftler;
+})();
+
+export const karsilastirmaSlug = (a: Bolum, b: Bolum) =>
+  `${slugla(a.ad)}-vs-${slugla(b.ad)}`;
+
+export const karsilastirmaCoz = (slug: string) =>
+  KARSILASTIRMALAR.find((c) => karsilastirmaSlug(c.a, c.b) === slug) ?? null;
+
+/** Bir bölümün yer aldığı diğer karşılaştırmalar. */
+export const bolumunKarsilastirmalari = (b: Bolum) =>
+  KARSILASTIRMALAR.filter((c) => c.a.ad === b.ad || c.b.ad === b.ad).slice(0, 5);
