@@ -180,7 +180,37 @@ h1, h2, h3 {
   width: 100%;
   max-width: 1120px;
   margin-inline: auto;
-  padding-inline: clamp(18px, 5vw, 40px);
+  padding-inline: clamp(16px, 5vw, 40px);
+}
+
+/* dar ekranda sarmak yerine yatayda kayan sekme şeridi */
+.serit {
+  display: flex;
+  min-width: 0;
+  max-width: 100%;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  margin-inline: -4px;
+  padding: 4px;
+}
+
+.serit::-webkit-scrollbar {
+  display: none;
+}
+
+.serit > * {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+/* metin bağlantılarında dokunma hedefini büyüt */
+.liste-baglanti {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
 }
 
 /* ---- aksiyon ---- */
