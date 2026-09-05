@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { BOLUMLER, BOLUM_KAYNAK, bolumAra, type Bolum } from "@/data/bolumler";
-import { netTahmini, tavandaMi } from "@/data/siralama";
+import { netTavanindaMi, toplamNetTahmini } from "@/lib/dagilim";
 import { bolumSlug } from "@/data/programatik";
 
 export function TersArama() {
@@ -11,9 +11,9 @@ export function TersArama() {
   const [secili, setSecili] = useState<Bolum | null>(null);
   const [benim, setBenim] = useState("61");
   const sonuc = bolumAra(q);
-  const kolay = secili ? netTahmini(secili.sonSira) : 0;
-  const zor = secili ? netTahmini(secili.ustSira) : 0;
-  const zorYazi = secili && tavandaMi(secili.ustSira) ? `${zor}+` : String(zor);
+  const kolay = secili ? toplamNetTahmini(secili.sonSira) : 0;
+  const zor = secili ? toplamNetTahmini(secili.ustSira) : 0;
+  const zorYazi = secili && netTavanindaMi(secili.ustSira) ? `${zor}+` : String(zor);
   const gereken = kolay;
   const fark = secili ? Math.round(gereken - Number(benim || 0)) : 0;
 

@@ -3,15 +3,15 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ALANLAR, BOLUMLER, BOLUM_KAYNAK, type Alan, type Bolum } from "@/data/bolumler";
-import { netTahmini, tavandaMi } from "@/data/siralama";
+import { netTavanindaMi, toplamNetTahmini } from "@/lib/dagilim";
 import { bolumSlug } from "@/data/programatik";
 
 const SEKMELER: ("Hepsi" | Alan)[] = ["Hepsi", ...ALANLAR];
 
 function Satir({ b }: { b: Bolum }) {
-  const kolay = netTahmini(b.sonSira);
-  const zor = netTahmini(b.ustSira);
-  const zorYazi = tavandaMi(b.ustSira) ? `${zor}+` : String(zor);
+  const kolay = toplamNetTahmini(b.sonSira);
+  const zor = toplamNetTahmini(b.ustSira);
+  const zorYazi = netTavanindaMi(b.ustSira) ? `${zor}+` : String(zor);
   return (
     <li className="border-b border-[var(--line-soft)] py-4 last:border-0">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">

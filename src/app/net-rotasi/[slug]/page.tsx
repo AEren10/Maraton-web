@@ -12,7 +12,7 @@ import { tempo } from "@/lib/tempo";
 import { kalanGun } from "@/lib/sinav";
 import { sayiYazi } from "@/lib/net";
 import { ROTALAR, netSlug, ornekDagilim, rotaSlug, rotaSlugCoz } from "@/data/programatik";
-import { siraTahminiSayi } from "@/data/siralama";
+import { tipikDagilim } from "@/lib/dagilim";
 import { kirintiYolu, nasilYapilir } from "@/lib/schema";
 
 export const revalidate = 21600;
@@ -82,7 +82,7 @@ export default async function RotaSayfasi({ params }: { params: Promise<{ slug: 
 
         <div className="mt-9 grid gap-5">
           <KisaCevap
-            metin={`${r.bas} netten ${r.son} nete çıkmak ${fark} net demek.${kaldirac ? ` Bu farkın en büyük parçası ${kaldirac} dersinden gelir: ${hesap.artis[hesap.kaldirac!]} net.` : ""} Sınava ${gun} gün varken bu, ayda ${sayiYazi(t.aylik)} net, haftada ${sayiYazi(t.haftalik)} net anlamına geliyor. Sıralamada karşılığı yaklaşık ${bicim(siraTahminiSayi(r.bas))}. sıradan ${bicim(siraTahminiSayi(r.son))}. sıraya çıkmak.`}
+            metin={`${r.bas} netten ${r.son} nete çıkmak ${fark} net demek.${kaldirac ? ` Bu farkın en büyük parçası ${kaldirac} dersinden gelir: ${hesap.artis[hesap.kaldirac!]} net.` : ""} Sınava ${gun} gün varken bu, ayda ${sayiYazi(t.aylik)} net, haftada ${sayiYazi(t.haftalik)} net anlamına geliyor. Sıralamada karşılığı yaklaşık ${bicim(tipikDagilim(r.bas).sira)}. sıradan ${bicim(tipikDagilim(r.son).sira)}. sıraya çıkmak.`}
           />
           <TekBakista
             satirlar={[
@@ -90,7 +90,7 @@ export default async function RotaSayfasi({ params }: { params: Promise<{ slug: 
               ["Aylık gereken", `${sayiYazi(t.aylik)} net`],
               ["Haftalık gereken", `${sayiYazi(t.haftalik)} net`],
               ["Tempo", `${t.isaret} ${t.ad}`],
-              ["Sıralama karşılığı", `~${bicim(siraTahminiSayi(r.bas))} → ~${bicim(siraTahminiSayi(r.son))}`],
+              ["Sıralama karşılığı", `~${bicim(tipikDagilim(r.bas).sira)} → ~${bicim(tipikDagilim(r.son).sira)}`],
               ["En büyük kaldıraç", kaldirac ?? "—"],
             ]}
           />

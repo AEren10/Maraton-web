@@ -59,11 +59,11 @@ export const VERILER: VeriKaydi[] = [
   },
   {
     anahtar: "siralama",
-    ad: "Net – sıralama bantları",
+    ad: "Puan – sıralama eğrisi",
     guven: "yaklasik",
     yil: 2025,
     aciklama:
-      "2025 yerleştirme sonuçlarından çıkarılmış yaklaşık bantlar. ÖSYM net–sıralama tablosu yayımlamıyor; bu değerler tahmindir ve sınavın zorluğuna göre her yıl kayar.",
+      "Netler ham puana çevrilip (TYT × 0,40 + AYT × 0,60) 2025'in doğrulanmış taban puanlarına oturtuluyor: 534,82 → 1.169. sıra ve 456,99 → 39.903. sıra. Aradaki noktalar ara değerdir. ÖSYM net–sıralama tablosu yayımlamıyor; bu değerler tahmindir, OBP hariçtir ve sınavın zorluğuna göre her yıl kayar.",
   },
   {
     anahtar: "bolum",

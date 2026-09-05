@@ -1,5 +1,5 @@
 import { BOLUMLER, type Bolum } from "./bolumler";
-import { netTahmini, siraTahminiSayi, tavandaMi } from "./siralama";
+import { netTavanindaMi, tipikDagilim, toplamNetTahmini } from "@/lib/dagilim";
 import { slugla } from "@/lib/slug";
 
 /* ---------- net → sıralama sayfaları ---------- */
@@ -22,7 +22,7 @@ export const netSlugCoz = (slug: string) => {
 
 /** Bu netin sırasıyla girilebilen bölümler, en seçiciden başlayarak. */
 export function netinBolumleri(net: number) {
-  const sira = siraTahminiSayi(net);
+  const { sira } = tipikDagilim(net);
   return [...BOLUMLER]
     .filter((b) => b.sonSira >= sira)
     .sort((a, b) => a.ustSira - b.ustSira);
@@ -41,11 +41,11 @@ export const bolumSlugCoz = (slug: string) =>
   BOLUMLER.find((b) => bolumSlug(b) === slug) ?? null;
 
 export function bolumNetleri(b: Bolum) {
-  const zor = netTahmini(b.ustSira);
+  const zor = toplamNetTahmini(b.ustSira);
   return {
-    kolay: netTahmini(b.sonSira),
+    kolay: toplamNetTahmini(b.sonSira),
     zor,
-    zorYazi: tavandaMi(b.ustSira) ? `${zor}+` : String(zor),
+    zorYazi: netTavanindaMi(b.ustSira) ? `${zor}+` : String(zor),
   };
 }
 

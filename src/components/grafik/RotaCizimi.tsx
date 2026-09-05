@@ -1,7 +1,7 @@
-import { siraTahminiSayi } from "@/data/siralama";
+import { tipikDagilim } from "@/lib/dagilim";
 import { ENAZ, ENCOK, GECMIS, HEDEF, T, ms, type Olcu } from "./rotaOlcu";
 
-const SIRA = Math.round(siraTahminiSayi(HEDEF) / 1000);
+const SIRA = Math.round(tipikDagilim(HEDEF).sira / 1000);
 
 export function RotaCizimi({ o, kimlik }: { o: Olcu; kimlik: string }) {
   const y = (v: number) => o.ALT - ((v - ENAZ) / (ENCOK - ENAZ)) * (o.ALT - o.UST);

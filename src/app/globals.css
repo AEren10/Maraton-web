@@ -1120,3 +1120,12 @@ body {
     outline-offset: 3px;
   }
 }
+
+@layer components {
+  .tablo-kaydir {
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+}
