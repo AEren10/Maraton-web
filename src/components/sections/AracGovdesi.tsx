@@ -5,7 +5,7 @@ import { GeriSayim } from "../araclar/GeriSayim";
 import { NetHesaplama } from "../araclar/NetHesaplama";
 import { ObpHesaplama } from "../araclar/ObpHesaplama";
 import { PuanHesaplama } from "../araclar/PuanHesaplama";
-import { SiralamaTablosu } from "../araclar/SiralamaTablosu";
+import { SiraKaydirici } from "../araclar/SiraKaydirici";
 import { TempoAraci } from "../araclar/TempoAraci";
 import { BolumTablosu } from "../araclar/BolumTablosu";
 import { TercihRobotu } from "../araclar/TercihRobotu";
@@ -39,7 +39,7 @@ export function AracGovdesi({ arac, kalanGun }: { arac: Arac; kalanGun: number }
         </div>
       );
     case "siralama":
-      return <SiralamaTablosu />;
+      return <SiraKaydirici />;
     case "tercih":
       return <TercihRobotu />;
     case "bolum":

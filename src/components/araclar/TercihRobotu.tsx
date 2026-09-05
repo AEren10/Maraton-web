@@ -5,7 +5,6 @@ import { useMemo, useState } from "react";
 import { ALANLAR, BOLUM_KAYNAK, tercihListesi, type Alan, type Bolum } from "@/data/bolumler";
 import { puandanSira, yksHamPuan } from "@/lib/yerlestirme";
 import { bolumSlug } from "@/data/programatik";
-import { PaylasKutusu } from "../PaylasKutusu";
 import { TercihNetGirisi } from "./tercih/NetGirisi";
 import { PuanPaneli } from "./PuanPaneli";
 
@@ -94,23 +93,6 @@ export function TercihRobotu() {
           </ul>
         </div>
       ) : null}
-
-      <PaylasKutusu
-        kaynak="tercih-robotu"
-        veri={{
-          arac: "Tercih robotu",
-          anaSayi: bicim(sira),
-          anaEtiket: `${bicim(Math.round(puan))} ham puanın 2025 sıra karşılığı`,
-          satirlar: [
-            ["TYT neti", bicim(sayi(tyt))],
-            ["AYT neti", sayi(ayt) ? bicim(sayi(ayt)) : "—"],
-            ["Ham puan (OBP hariç)", bicim(Math.round(puan))],
-            ["Açılan bölüm", String(girer.length)],
-          ],
-          url: "https://maratonapp.com/tercih-robotu",
-          metin: `${bicim(Math.round(puan))} ham puan 2025'te yaklaşık ${bicim(sira)}. sıraya denk geliyordu.`,
-        }}
-      />
 
       <Link href={`/hedef-net-rotasi?h=${Math.min(Math.round(tytNet) + 12, 120)}`}
         className="btn btn-brand mt-6 w-full">

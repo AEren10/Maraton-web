@@ -13,21 +13,15 @@ import {
 } from "@/data/sinavlar";
 import { net, netYazi } from "@/lib/net";
 import { adresiGuncelle } from "@/lib/paylasim";
-import { PaylasKutusu } from "../PaylasKutusu";
+import { alanCoz, alanKisalt, girisCoz, girisYaz } from "@/lib/netAdres";
 import { NetGirisTablosu, type Giris } from "./net/NetGirisTablosu";
 import { NetSonucu } from "./net/NetSonucu";
 
 /** Adresteki alan ve net girişlerini çözer. */
-function cozumle(arama: string) {
+function cozumle(arama: string, dersAdi: (a: AlanKey) => string[]) {
   const p = new URLSearchParams(arama);
-  const gelenAlan = p.get("a") as AlanKey | null;
-  const alan: AlanKey = gelenAlan && ALAN_KEYS.includes(gelenAlan) ? gelenAlan : "sayisal";
-  const giris: Giris = {};
-  for (const parca of (p.get("n") ?? "").split(",")) {
-    const [ad, d, y] = parca.split(":");
-    if (ad) giris[ad] = { d: Number(d) || 0, y: Number(y) || 0 };
-  }
-  return { alan, giris, diger: p.get("t") ?? "" };
+  const alan = alanCoz(p.get("a")) ?? "sayisal";
+  return { alan, giris: girisCoz(p, dersAdi(alan)), diger: p.get("t") ?? "" };
 }
 
 export function NetHesaplama({ sinav }: { sinav: SinavKey }) {
@@ -36,13 +30,13 @@ export function NetHesaplama({ sinav }: { sinav: SinavKey }) {
   const [diger, setDiger] = useState("");
 
   useEffect(() => {
-    const gelen = cozumle(window.location.search);
+    const gelen = cozumle(window.location.search, (a) => dersleriGetir(sinav, a).map((d) => d.ad));
     if (Object.keys(gelen.giris).length === 0 && !gelen.diger) return;
     // eslint-disable-next-line react-hooks/set-state-in-effect -- adres bir kez okunur
     setAlan(gelen.alan);
     setGiris(gelen.giris);
     setDiger(gelen.diger);
-  }, []);
+  }, [sinav]);
 
   const dersler = useMemo(() => dersleriGetir(sinav, alan), [sinav, alan]);
   const soru = soruSayisi(dersler);
@@ -59,16 +53,11 @@ export function NetHesaplama({ sinav }: { sinav: SinavKey }) {
   );
 
   useEffect(() => {
-    const dolu = dersler
-      .map((d) => {
-        const g = giris[d.ad];
-        return g && (g.d || g.y) ? `${d.ad}:${g.d}:${g.y}` : null;
-      })
-      .filter(Boolean);
-    if (dolu.length) {
+    const alanlar = girisYaz(giris, dersler.map((d) => d.ad));
+    if (alanlar) {
       adresiGuncelle({
-        ...(sinav === "ayt" ? { a: alan } : {}),
-        n: dolu.join(","),
+        ...(sinav === "ayt" ? { a: alanKisalt(alan) } : {}),
+        ...alanlar,
         ...(diger ? { t: diger } : {}),
       });
     }
@@ -122,26 +111,6 @@ export function NetHesaplama({ sinav }: { sinav: SinavKey }) {
 
       {toplamNet > 0 ? (
         <>
-          <PaylasKutusu
-            kaynak={`${sinav}-net`}
-            veri={{
-              arac: `${SINAVLAR[sinav].ad} net hesaplama${sinav === "ayt" ? ` · ${AYT_ALANLARI[alan].kisa}` : ""}`,
-              anaSayi: netYazi(toplamNet),
-              anaEtiket: `${SINAVLAR[sinav].ad} neti`,
-              satirlar: dersler
-                .filter((d) => {
-                  const g = giris[d.ad];
-                  return g && (g.d > 0 || g.y > 0);
-                })
-                .map((d) => {
-                  const g = giris[d.ad] ?? { d: 0, y: 0 };
-                  return [d.ad, netYazi(net(g.d, g.y))] as [string, string];
-                }),
-              url: typeof window === "undefined" ? "https://maratonapp.com" : window.location.href,
-              metin: `${SINAVLAR[sinav].ad} netim ${netYazi(toplamNet)}.`,
-            }}
-          />
-
           <div className="kart kart-vurgu mt-6 p-5">
             <p className="text-[15px] text-[var(--text-secondary)]">
               Peki bu netle nereye gidiyorsun?

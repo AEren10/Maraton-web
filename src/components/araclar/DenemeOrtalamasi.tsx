@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { netYazi } from "@/lib/net";
 import { Stat } from "../ui/Kart";
-import { PaylasKutusu } from "../PaylasKutusu";
 
 export function DenemeOrtalamasi() {
   const [ham, setHam] = useState("58, 62, 61, 67, 65");
@@ -47,23 +46,6 @@ export function DenemeOrtalamasi() {
             Denemelerin {netYazi(enCok - enAz)} net aralıkta oynuyor. Referansın en yüksek
             denemen değil, son üçünün ortalaması: {netYazi(son3Ort)}.
           </p>
-
-          <PaylasKutusu
-            kaynak="deneme-ortalamasi"
-            veri={{
-              arac: "Deneme ortalaması",
-              anaSayi: netYazi(son3Ort),
-              anaEtiket: "son üç denemenin ortalaması",
-              satirlar: [
-                ["Genel ortalama", netYazi(ort)],
-                ["En yüksek", netYazi(enCok)],
-                ["En düşük", netYazi(enAz)],
-                ["Deneme sayısı", String(sayilar.length)],
-              ],
-              url: "https://maratonapp.com/deneme-ortalamasi",
-              metin: `Son üç denememin ortalaması ${netYazi(son3Ort)} net.`,
-            }}
-          />
 
           <Link href="/hedef-net-rotasi" className="btn btn-brand mt-6 w-full">
             {netYazi(son3Ort)}&apos;ten hedefime rotamı çıkar →

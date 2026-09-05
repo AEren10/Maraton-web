@@ -1,9 +1,7 @@
 "use client";
 
 import { DERSLER, toplam, type Netler } from "@/lib/dersler";
-import { rotaQuery } from "@/lib/url";
 import { ButonLink } from "../ui/Buton";
-import { PaylasKutusu } from "../PaylasKutusu";
 import { olay } from "../Olcum";
 
 export function RotaKarti({
@@ -15,8 +13,6 @@ export function RotaKarti({
   artis: Netler;
   hedef: number;
 }) {
-  const link = `https://maratonapp.com/rota?${rotaQuery(hedef, mevcut)}`;
-
   return (
     <div className="kart overflow-hidden">
       <div className="flex items-baseline justify-between border-b border-[var(--line)] px-6 py-5">
@@ -41,19 +37,6 @@ export function RotaKarti({
       </ul>
 
       <div className="px-6 pb-6 pt-2">
-        <PaylasKutusu
-          kaynak="hedef-rotasi"
-          veri={{
-            arac: "Hedef net rotası",
-            anaSayi: `+${Math.round(hedef - toplam(mevcut))}`,
-            anaEtiket: "hedef farkı",
-            satirlar: DERSLER.map(
-              (d) => [d.ad, `${mevcut[d.key]} → ${mevcut[d.key] + artis[d.key]}`] as [string, string]
-            ),
-            url: link,
-            metin: `${Math.round(toplam(mevcut))} → ${hedef} net. Rotam burada:`,
-          }}
-        />
         <ButonLink tur="sessiz" className="mt-4 w-full" href="/maraton"
           onClick={() => olay("maraton_cta_tiklandi")}>
           Maraton&apos;da devam et

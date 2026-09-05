@@ -6,7 +6,6 @@ import { OBP_CARPAN, obpHesapla } from "@/lib/puan";
 import { sayiYazi } from "@/lib/net";
 import { Sayac } from "../ui/Sayac";
 import { Stat } from "../ui/Kart";
-import { PaylasKutusu } from "../PaylasKutusu";
 
 export function ObpHesaplama() {
   const [diploma, setDiploma] = useState("82");
@@ -73,22 +72,6 @@ export function ObpHesaplama() {
           Kayıt sildirmek bu durumu değiştirmez.
         </p>
       </div>
-
-      <PaylasKutusu
-        kaynak="obp"
-        veri={{
-          arac: "OBP hesaplama",
-          anaSayi: `+${Math.round(katki)}`,
-          anaEtiket: "puana eklenen",
-          satirlar: [
-            ["Diploma notu", diploma],
-            ["OBP", sayiYazi(obp)],
-            ["Katsayı", yerlesti ? "0,06" : "0,12"],
-          ],
-          url: "https://maratonapp.com/obp-hesaplama",
-          metin: `Diploma notumun puanıma katkısı ${Math.round(katki)} puan.`,
-        }}
-      />
 
       <Link href="/tyt-puan-hesaplama" className="btn btn-brand mt-6 w-full">
         Netlerinle birlikte puanını hesapla →

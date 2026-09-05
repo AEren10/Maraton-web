@@ -6,7 +6,6 @@ import { trendCikar } from "@/lib/trend";
 import { sayiYazi } from "@/lib/net";
 import { Stat } from "../ui/Kart";
 import { Sayac } from "../ui/Sayac";
-import { PaylasKutusu } from "../PaylasKutusu";
 import dynamic from "next/dynamic";
 import type { TrendNoktasi } from "../grafik/TrendGrafigi";
 
@@ -107,23 +106,6 @@ export function TempoAraci({ kalanGun }: { kalanGun: number }) {
             Bu bir tahmin değil, mevcut trendinin devamı. Trend değişirse sonuç değişir.
             Ayda {sayiYazi(t.aylikArtis)} net gidiyorsun, {sayiYazi(t.kalanAy)} ay kaldı. Tavana yaklaştıkça artış yavaşlar; projeksiyon bunu hesaba katıyor.
           </p>
-
-          <PaylasKutusu
-            kaynak="tempo"
-            veri={{
-              arac: "Bu tempoyla kaç net",
-              anaSayi: String(t.buTempoyla),
-              anaEtiket: "sınav günü tahmini",
-              satirlar: [
-                ["Bu tempoyla", `${t.buTempoyla} net`],
-                ["Tempo artarsa", `${t.tempoArtarsa} net`],
-                ["Düşüş olursa", `${t.dususOlursa} net`],
-                ["Kalan", `${gun} gün`],
-              ],
-              url: "https://maratonapp.com/bu-tempoyla-kac-net",
-              metin: `Bu tempoyla sınav günü tahminim ${t.buTempoyla} net.`,
-            }}
-          />
 
           <div className="ic-kart mt-6 p-5">
             <p className="text-[15px] text-[var(--text-secondary)]">

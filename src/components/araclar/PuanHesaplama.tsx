@@ -7,7 +7,6 @@ import { BARAJ, obpHesapla, tytPuan, yerlestirmePuani } from "@/lib/puan";
 import { netYazi } from "@/lib/net";
 import { NetGirisiAlani } from "../ui/NetGirisiAlani";
 import { Stat } from "../ui/Kart";
-import { PaylasKutusu } from "../PaylasKutusu";
 import { Sayac } from "../ui/Sayac";
 
 export function PuanHesaplama() {
@@ -69,23 +68,6 @@ export function PuanHesaplama() {
         puana denk gelir. OBP katkısı diploma notu × 5 × 0,12.
       </p>
 
-      {top > 0 ? (
-        <PaylasKutusu
-          kaynak="tyt-puan"
-          veri={{
-            arac: "TYT puan tahmini",
-            anaSayi: netYazi(puan),
-            anaEtiket: "yaklaşık TYT puanı",
-            satirlar: [
-              ["Toplam net", netYazi(top)],
-              ["Diploma notu", diploma],
-              ["OBP katkısı", netYazi(puan - ham)],
-            ],
-            url: "https://maratonapp.com/tyt-puan-hesaplama",
-            metin: `Yaklaşık TYT puanım ${netYazi(puan)}.`,
-          }}
-        />
-      ) : null}
 
       <Link href="/hedef-net-rotasi" className="btn btn-brand mt-6 w-full">
         Bu puanı yükseltecek rotayı çıkar →

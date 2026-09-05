@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Sayac } from "../ui/Sayac";
-import { PaylasKutusu } from "../PaylasKutusu";
 import { tempo } from "@/lib/tempo";
 import { sayiYazi } from "@/lib/net";
 
@@ -54,23 +53,6 @@ export function GeriSayim({ kalanGun }: { kalanGun: number }) {
           <dd className="sayi kart-sayi mt-1">{sayiYazi(t.haftalik)}</dd>
         </div>
       </dl>
-
-      <PaylasKutusu
-        kaynak="geri-sayim"
-        veri={{
-          arac: "YKS geri sayım",
-          anaSayi: String(kalanGun),
-          anaEtiket: "gün kaldı",
-          satirlar: [
-            ["Hedef farkı", `${Math.round(fark)} net`],
-            ["Ayda gereken", `${sayiYazi(t.aylik)} net`],
-            ["Haftada gereken", `${sayiYazi(t.haftalik)} net`],
-            ["Kalan hafta", sayiYazi(hafta)],
-          ],
-          url: "https://maratonapp.com/yks-kac-gun-kaldi",
-          metin: `YKS'ye ${kalanGun} gün kaldı. Hedefime ${Math.round(fark)} net var.`,
-        }}
-      />
 
       <p className="mt-6 text-[15px] text-[var(--text-secondary)]">
         Haftada yarım net. Söylenince küçük, {sayiYazi(hafta)} hafta üst üste yapınca {Math.round(fark)}.

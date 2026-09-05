@@ -1036,3 +1036,87 @@ body {
     animation: none;
   }
 }
+
+@layer components {
+  .sira-sahne {
+    background:
+      radial-gradient(120% 90% at 50% 0%, rgba(236, 51, 71, 0.16), transparent 70%),
+      var(--surface);
+  }
+
+  .sira-hat {
+    position: relative;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--line);
+  }
+  .sira-hat-dolu {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--yer);
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--brand-light), var(--brand));
+    transition: width 260ms ease-out;
+  }
+  .sira-hat-nokta {
+    position: absolute;
+    top: 50%;
+    left: var(--yer);
+    width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    background: var(--brand);
+    box-shadow: 0 0 0 4px var(--surface), 0 0 22px var(--brand-glow);
+    transform: translate(-50%, -50%);
+    transition: left 260ms ease-out;
+  }
+
+  .kaydirici {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 34px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .kaydirici::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      var(--aksan) var(--dolu),
+      var(--line) var(--dolu)
+    );
+  }
+  .kaydirici::-moz-range-track {
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      var(--aksan) var(--dolu),
+      var(--line) var(--dolu)
+    );
+  }
+  .kaydirici::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px;
+    height: 26px;
+    margin-top: -9px;
+    border: 3px solid var(--surface);
+    border-radius: 999px;
+    background: var(--aksan);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+  .kaydirici::-moz-range-thumb {
+    width: 26px;
+    height: 26px;
+    border: 3px solid var(--surface);
+    border-radius: 999px;
+    background: var(--aksan);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+  .kaydirici:focus-visible::-webkit-slider-thumb {
+    outline: 2px solid var(--brand-light);
+    outline-offset: 3px;
+  }
+}

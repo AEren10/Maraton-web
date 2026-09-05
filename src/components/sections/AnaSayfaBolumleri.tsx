@@ -5,7 +5,7 @@ import { BilgiKartlari } from "../icerik/BilgiKartlari";
 import { SSSListesi } from "../icerik/SSSListesi";
 import { MaratonBolumu } from "../icerik/MaratonBolumu";
 import { BeklemeListesi } from "../BeklemeListesi";
-import { SiralamaTablosu } from "../araclar/SiralamaTablosu";
+import { SiraKaydirici } from "../araclar/SiraKaydirici";
 import { SINAV_YILI } from "@/lib/sinav";
 
 export function AnaSayfaBolumleri({ kalanGun }: { kalanGun: number }) {
@@ -39,7 +39,7 @@ export function AnaSayfaBolumleri({ kalanGun }: { kalanGun: number }) {
         alt={`YKS ${SINAV_YILI}'ye ${kalanGun} gün var. Aşağıdaki bantlar 2025 yerleştirme sonuçlarından; bu yılın sonucu farklı olur.`}
       >
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <SiralamaTablosu />
+          <SiraKaydirici />
           <div className="kart p-6 sm:p-7">
             <h3 className="text-[19px]">Tabloyu nasıl okumalı?</h3>
             <div className="metin mt-4 text-[15px]">

@@ -269,12 +269,12 @@ export const ARAC_ICERIK: Record<string, AracIcerik> = {
   "net-siralama-tablosu": {
     rozet: "2025 yerleştirme verisi",
     kisaCevap:
-      "Aynı net her yıl aynı sırayı vermez; sınavın zorluğu ve aday sayısı bandı kaydırır. Aşağıdaki tablo 2025 yerleştirme sonuçlarından çıkarılmış yaklaşık bantlardır: 55 net ~450.000, 70 net ~180.000, 85 net ~70.000, 100 net ~20.000. sıra.",
+      "TYT ve AYT çubuklarını sürükle, sıranın nasıl oynadığını canlı gör. Netler toplanmaz: ham puan = TYT puanı × 0,40 + AYT puanı × 0,60. Aynı net her yıl aynı sırayı da vermez; sınavın zorluğu ve aday sayısı bandı kaydırır.",
     tekBakista: [
-      ["55 net", "~450.000. sıra"],
-      ["70 net", "~180.000. sıra"],
-      ["85 net", "~70.000. sıra"],
-      ["100 net", "~20.000. sıra"],
+      ["Girdi", "TYT neti ve AYT neti, ayrı ayrı"],
+      ["Çıktı", "Ham puan + yaklaşık sıra bandı"],
+      ["Ağırlık", "TYT %40 · AYT %60"],
+      ["OBP", "Hariç — sıra için ortalama katkı varsayılır"],
       ["2025'te sınava giren", "2.351.641 aday"],
       ["Niteliği", "Yaklaşık — ÖSYM net–sıra tablosu yayımlamaz"],
     ],
@@ -285,9 +285,9 @@ export const ARAC_ICERIK: Record<string, AracIcerik> = {
           "Puanlar sınavın zorluğuna göre her yıl kayar; 480 puan bir yıl 30.000. sıra, ertesi yıl 45.000. sıra olabilir. Sıra ise adaylar arasındaki yerini gösterir ve karşılaştırma için tek sağlam ölçüdür.",
       },
       {
-        baslik: "Bantlar neden yaklaşık?",
+        baslik: "Neden tek bir net kutusu yok?",
         metin:
-          "ÖSYM net–sıralama dönüşüm tablosu yayımlamıyor; yayımladığı şey program bazlı taban puan ve başarı sırası. Bu tablo o sonuçlardan geriye doğru çıkarıldı, tahmindir.",
+          "Çünkü \"85 net\" tek başına bir şey ifade etmiyor: 85'in TYT'den mi AYT'den mi geldiği sıranı tamamen değiştirir. AYT'de kazanılan bir net TYT'dekinin 1,5 katı değerinde. Bu yüzden iki çubuk ayrı duruyor.",
       },
       {
         baslik: "İlk 100.000 ne demek?",

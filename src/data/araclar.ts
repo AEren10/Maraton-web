@@ -90,10 +90,10 @@ export const ARACLAR: Arac[] = [
     tur: "tercih",
   },
   {
-    slug: "net-siralama-tablosu", veri: ["siralama"], kategori: "Sıralama ve tercih", renk: "var(--felsefe)", ozet: "Geçen yıl hangi net hangi sıra bandına denk geldi?", ad: "Net – sıralama tablosu", h1: "Geçen yıl bu netler nereye gitti?",
+    slug: "net-siralama-tablosu", veri: ["siralama"], kategori: "Sıralama ve tercih", renk: "var(--felsefe)", ozet: "TYT ve AYT çubuklarını kaydır, sıranın nasıl oynadığını gör.", ad: "Net – sıralama", h1: "Bu netler seni kaçıncı sıraya koyar?",
     title: "Net Sıralama Tablosu – Kaç Net Kaç Sıra? | Maraton",
     description:
-      "Geçen yılın yerleştirme sonuçlarına göre net ve sıralama bantları. 55 net, 70 net, 85 net nereye denk geldi?",
+      "TYT ve AYT çubuklarını ayrı ayrı kaydır, 2025 verisine göre yaklaşık başarı sıranın nasıl değiştiğini anında gör.",
     tur: "siralama",
   },
   {
