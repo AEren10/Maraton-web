@@ -38,7 +38,7 @@ export function Sayac({
     if (!hazir) return;
     const bas = oncekiRef.current;
     oncekiRef.current = deger;
-    if (azHareket() || bas === deger) {
+    if (azHareket() || bas === deger || document.hidden) {
       setGoster(deger);
       return;
     }

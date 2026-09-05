@@ -57,7 +57,7 @@ export const BILGI: BilgiKarti[] = [
     kategori: "Temel kurallar",
     baslik: "TYT ve AYT ağırlıkları",
     metin:
-      "Yerleştirme puanının %40'ı TYT'den, %60'ı AYT'den gelir. Yani AYT'de kazanılan 1 net daha değerlidir. Ama TYT barajını geçemezsen AYT netlerin hiç sayılmaz; sıralama ikisinin toplamıdır.",
+      "Yerleştirme puanının %40'ı TYT'den, %60'ı AYT'den gelir. Yani AYT'de kazanılan 1 net daha değerlidir. Ama TYT barajını geçemezsen AYT netlerin hiç sayılmaz. İki oturumun neti toplanmaz; ham puan = TYT puanı × 0,40 + AYT puanı × 0,60.",
   },
   {
     kategori: "Temel kurallar",

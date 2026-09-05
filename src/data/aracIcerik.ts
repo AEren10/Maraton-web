@@ -333,7 +333,7 @@ export const ARAC_ICERIK: Record<string, AracIcerik> = {
   "tercih-robotu": {
     rozet: "2025 sıralarına göre",
     kisaCevap:
-      "TYT ve AYT netini ayrı ayrı gir; sıralama ikisinin toplamından çıkar. 2025 bantlarına göre yaklaşık sıranı ve o sırayla hangi bölümlerin açık olduğunu gösterir. Liste iki parçadır: sıranın yettiği bölümler ve az kalanlar. Bu bir tercih listesi değil, yön göstergesidir.",
+      "TYT ve AYT netini ayrı ayrı gir. Netler toplanmaz: ÖSYM TYT'yi %40, AYT'yi %60 ağırlıkla puana çevirir, sıralama o puandan çıkar. 2025 bantlarına göre yaklaşık sıranı ve o sırayla hangi bölümlerin açık olduğunu gösterir. Liste iki parçadır: sıranın yettiği bölümler ve az kalanlar. Bu bir tercih listesi değil, yön göstergesidir.",
     tekBakista: [
       ["Girdi", "TYT neti + AYT neti"],
       ["Çıktı", "Yaklaşık sıra + ulaşılabilir bölümler"],

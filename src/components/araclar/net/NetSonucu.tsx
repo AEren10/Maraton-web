@@ -3,14 +3,12 @@
 import Link from "next/link";
 import type { SinavDersi, SinavKey } from "@/data/sinavlar";
 import { ISTATISTIK_KAYNAK, ortalamaBul } from "@/data/istatistik";
-import { siraTahminiSayi } from "@/data/siralama";
 import { net, netYazi } from "@/lib/net";
 import { BARAJ, tytPuan } from "@/lib/puan";
+import { PuanPaneli } from "../PuanPaneli";
 import { NetCubugu } from "../../ui/NetCubugu";
 import { Sayac } from "../../ui/Sayac";
 import type { Giris } from "./NetGirisTablosu";
-
-const bicim = (n: number) => n.toLocaleString("tr-TR");
 
 /** TYT netinden yaklaşık puan; dört dersin ayrı katkısı gerekiyor. */
 function tytPuanTahmini(giris: Giris) {
@@ -50,8 +48,7 @@ export function NetSonucu({
 
   const digerSayi = Number(digerNet.replace(",", "."));
   const digerGecerli = Number.isFinite(digerSayi) && digerSayi > 0;
-  const genelToplam = toplamNet + (digerGecerli ? digerSayi : 0);
-  const sira = digerGecerli ? siraTahminiSayi(genelToplam) : null;
+  const digerAlan = digerGecerli ? digerSayi : 0;
   const puan = sinav === "tyt" ? tytPuanTahmini(giris) : null;
 
   return (
@@ -96,11 +93,12 @@ export function NetSonucu({
         </div>
       ) : null}
 
-      <div className="kart kart-vurgu mt-5 p-5">
+      <div className="kart mt-5 p-5">
         <p className="etiket">Sıralama karşılığı</p>
         <p className="mt-2 text-[14px] leading-relaxed text-[var(--text-secondary)]">
-          Sıralama tek oturumla çıkmaz; {sinav === "tyt" ? "AYT" : "TYT"} netini de gir,
-          toplamın 2025 karşılığını gösterelim.
+          Sıralama tek oturumla çıkmaz ve iki oturumun neti toplanmaz.{" "}
+          {sinav === "tyt" ? "AYT" : "TYT"} netini de gir; ÖSYM&apos;nin 40/60 ağırlığıyla
+          puana çevirip 2025 sıra karşılığını gösterelim.
         </p>
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <label className="flex items-center gap-3">
@@ -116,19 +114,17 @@ export function NetSonucu({
               className="sayi w-24 rounded-[10px] border border-[var(--line)] bg-[var(--surface-elevated)] px-2 py-2 text-center text-[17px] outline-none"
             />
           </label>
-          {sira !== null ? (
-            <span className="sayi text-[19px]">
-              ≈ {bicim(genelToplam)} net → <span style={{ color: "var(--brand)" }}>~{bicim(sira)}. sıra</span>
-            </span>
-          ) : null}
         </div>
-        {sira !== null ? (
-          <Link href={`/net/${Math.min(Math.max(Math.round(genelToplam), 40), 115)}-net-kac-siralama`}
-            className="baglanti mt-4 inline-block text-[14px]">
-            {Math.round(genelToplam)} netle hangi bölümler açık?
-          </Link>
-        ) : null}
       </div>
+
+      <PuanPaneli tytNet={sinav === "tyt" ? toplamNet : digerAlan} aytNet={sinav === "ayt" ? toplamNet : digerAlan} />
+
+      {digerGecerli ? (
+        <Link href={`/net/${Math.min(Math.max(Math.round(toplamNet), 40), 115)}-net-kac-siralama`}
+          className="baglanti mt-4 inline-block text-[14px]">
+          Bu bandda hangi bölümler açık?
+        </Link>
+      ) : null}
 
       <p className="mt-5 text-[12px] leading-relaxed text-[var(--text-muted)]">
         Çubuklardaki ince çizgi 2025 Türkiye ortalaması. {ISTATISTIK_KAYNAK} Puan ve

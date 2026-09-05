@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ALANLAR, BOLUM_KAYNAK, tercihListesi, type Alan, type Bolum } from "@/data/bolumler";
-import { siraTahminiSayi } from "@/data/siralama";
+import { puandanSira, yksHamPuan } from "@/lib/yerlestirme";
 import { bolumSlug } from "@/data/programatik";
-import { Sayac } from "../ui/Sayac";
 import { PaylasKutusu } from "../PaylasKutusu";
 import { TercihNetGirisi } from "./tercih/NetGirisi";
+import { PuanPaneli } from "./PuanPaneli";
 
 const SUZGECLER: ("Hepsi" | Alan)[] = ["Hepsi", ...ALANLAR];
 const bicim = (n: number) => n.toLocaleString("tr-TR");
@@ -42,32 +42,18 @@ export function TercihRobotu() {
     const n = Number(v.replace(",", "."));
     return Number.isFinite(n) && n > 0 ? n : 0;
   };
-  const toplam = Math.round((sayi(tyt) + sayi(ayt)) * 100) / 100;
-
-  const sira = useMemo(() => siraTahminiSayi(toplam), [toplam]);
+  const tytNet = sayi(tyt);
+  const aytNet = sayi(ayt);
+  const puan = useMemo(() => yksHamPuan(tytNet, aytNet), [tytNet, aytNet]);
+  const sira = useMemo(() => puandanSira(puan), [puan]);
   const { girer, yakin } = useMemo(() => tercihListesi(sira), [sira]);
   const suz = (l: Bolum[]) => (suzgec === "Hepsi" ? l : l.filter((b) => b.alan === suzgec));
 
   return (
     <div className="kart p-5 sm:p-7">
-      <TercihNetGirisi tyt={tyt} ayt={ayt} onTyt={setTyt} onAyt={setAyt} toplam={toplam} />
+      <TercihNetGirisi tyt={tyt} ayt={ayt} onTyt={setTyt} onAyt={setAyt} />
 
-      <div className="kart kart-vurgu mt-6 p-5 sm:p-6">
-        <p className="etiket">Bu netin 2025 karşılığı</p>
-        <p className="mt-3 flex flex-wrap items-baseline gap-x-3">
-          <span className="sayi text-[clamp(38px,9vw,60px)] leading-none"
-            style={{ color: "var(--brand)", textShadow: "0 0 40px var(--brand-glow)" }}>
-            <Sayac deger={sira} sure={600} />
-          </span>
-          <span className="text-[15px] text-[var(--text-secondary)]">. sıra civarı</span>
-        </p>
-        {sayi(ayt) === 0 ? (
-          <p className="mt-3 text-[13px] leading-relaxed text-[var(--warn)]">
-            AYT netini girmedin; bu sıra yalnızca TYT üzerinden hesaplandı ve gerçekte
-            olduğundan geride görünüyor.
-          </p>
-        ) : null}
-      </div>
+      <PuanPaneli tytNet={tytNet} aytNet={aytNet} />
 
       <div className="mt-7">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
@@ -114,19 +100,19 @@ export function TercihRobotu() {
         veri={{
           arac: "Tercih robotu",
           anaSayi: bicim(sira),
-          anaEtiket: `${bicim(toplam)} netin 2025 sıra karşılığı`,
+          anaEtiket: `${bicim(Math.round(puan))} ham puanın 2025 sıra karşılığı`,
           satirlar: [
             ["TYT neti", bicim(sayi(tyt))],
             ["AYT neti", sayi(ayt) ? bicim(sayi(ayt)) : "—"],
-            ["Toplam", bicim(toplam)],
+            ["Ham puan (OBP hariç)", bicim(Math.round(puan))],
             ["Açılan bölüm", String(girer.length)],
           ],
           url: "https://maratonapp.com/tercih-robotu",
-          metin: `${bicim(toplam)} net 2025'te yaklaşık ${bicim(sira)}. sıraya denk geliyordu.`,
+          metin: `${bicim(Math.round(puan))} ham puan 2025'te yaklaşık ${bicim(sira)}. sıraya denk geliyordu.`,
         }}
       />
 
-      <Link href={`/hedef-net-rotasi?h=${Math.min(Math.round(toplam) + 12, 120)}`}
+      <Link href={`/hedef-net-rotasi?h=${Math.min(Math.round(tytNet) + 12, 120)}`}
         className="btn btn-brand mt-6 w-full">
         Bu listeyi bir üst banda taşıyacak rotayı çıkar →
       </Link>
