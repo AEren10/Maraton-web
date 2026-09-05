@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AnaSayfaBolumleri } from "@/components/sections/AnaSayfaBolumleri";
 import { JsonLd } from "@/components/JsonLd";
 import { GeriSayimRozeti } from "@/components/GeriSayimRozeti";
+import { HeroIkonlari } from "@/components/HeroIkonlari";
 import { RotaSahnesi } from "@/components/grafik/RotaSahnesi";
 import { ARACLAR } from "@/data/araclar";
 import { kalanGun as hesapla, SINAV_YILI } from "@/lib/sinav";
@@ -27,7 +28,8 @@ export default function AnaSayfa() {
     <>
       <JsonLd data={websitesi} />
 
-      <section className="sinir flex min-h-[calc(100svh-4rem)] flex-col justify-center py-8">
+      <section className="sinir relative flex min-h-[calc(100svh-4rem)] flex-col justify-center py-8">
+        <HeroIkonlari />
         <div className="flex flex-col-reverse gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-10">
           <div className="max-w-[720px]">
           <h1 className="text-[clamp(26px,4.4vw,44px)]">

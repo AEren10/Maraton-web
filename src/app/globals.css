@@ -764,6 +764,13 @@ body {
     transform: translateX(5px);
   }
 
+  .kart-populer {
+    border-color: color-mix(in srgb, var(--aksan) 34%, transparent);
+    background:
+      radial-gradient(130% 120% at 0% 0%, color-mix(in srgb, var(--aksan) 10%, transparent), transparent 58%),
+      var(--surface);
+  }
+
   .arac-yildiz {
     color: var(--warn);
     filter: drop-shadow(0 0 10px color-mix(in srgb, var(--warn) 55%, transparent));
@@ -979,5 +986,53 @@ body {
     .konu-baslik {
       font-size: 21px;
     }
+  }
+}
+
+/* ---- hero kenar kısayolları ---- */
+
+.hero-rozet {
+  opacity: 0;
+  animation: rozet-belir 700ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  animation-delay: var(--gecikme, 0ms);
+}
+
+.hero-rozet-kutu {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-inline: auto;
+  border-radius: 16px;
+  color: var(--aksan);
+  background: color-mix(in srgb, var(--aksan) 12%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--aksan) 26%, transparent);
+  transition: transform 300ms cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 300ms ease;
+  animation: rozet-suzul 6s ease-in-out infinite;
+  animation-delay: var(--gecikme, 0ms);
+}
+
+.hero-rozet:hover .hero-rozet-kutu {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 0 26px color-mix(in srgb, var(--aksan) 45%, transparent);
+}
+
+@keyframes rozet-belir {
+  from { opacity: 0; transform: scale(0.86); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes rozet-suzul {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rozet {
+    opacity: 1;
+    animation: none;
+  }
+  .hero-rozet-kutu {
+    animation: none;
   }
 }

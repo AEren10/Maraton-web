@@ -34,7 +34,7 @@ export function AracKarti({ arac }: { arac: Arac }) {
     <li>
       <Link
         href={`/${arac.slug}`}
-        className="kart kart-arac flex h-full flex-col p-4"
+        className={`kart kart-arac flex h-full flex-col p-4 ${arac.populer ? "kart-populer" : ""}`}
         style={{ ["--aksan" as string]: arac.renk ?? "var(--brand)" }}
       >
         <div className="flex items-start justify-between gap-3">
