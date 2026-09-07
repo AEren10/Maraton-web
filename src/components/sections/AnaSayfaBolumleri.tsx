@@ -6,11 +6,58 @@ import { SSSListesi } from "../icerik/SSSListesi";
 import { MaratonBolumu } from "../icerik/MaratonBolumu";
 import { BeklemeListesi } from "../BeklemeListesi";
 import { SiraKaydirici } from "../araclar/SiraKaydirici";
-import { SINAV_YILI } from "@/lib/sinav";
 
-export function AnaSayfaBolumleri({ kalanGun }: { kalanGun: number }) {
+export function AnaSayfaBolumleri() {
   return (
     <>
+      <Bolum
+        id="siralama"
+        etiket="Sıralama"
+        baslik="Bu netler seni kaçıncı sıraya koyar?"
+        alt="TYT ve AYT çubuklarını kaydır, sıra anında oynasın. Netler toplanmaz: ham puanın %40'ı TYT'den, %60'ı AYT'den gelir."
+      >
+        <SiraKaydirici />
+        <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+          <div className="kart p-6 sm:p-7">
+            <h3 className="text-[19px]">Bu sayılar ne kadar kesin?</h3>
+            <div className="metin mt-4 text-[15px]">
+              <p>
+                Bir söz değil, geçen yılın fotoğrafı. Sıralar 2025&apos;in doğrulanmış taban
+                puanlarına oturtuldu; sınavın zorluğu ve aday sayısı her yıl bandı kaydırıyor.
+              </p>
+              <p>
+                O yüzden hedefini sıra üzerinden değil net üzerinden kur. Net senin
+                kontrolünde, sıra değil.
+              </p>
+            </div>
+            <p className="mt-5">
+              <Link href="/bolum-kac-net" className="baglanti text-[15px]">
+                Bölüme göre gereken neti ara
+              </Link>
+            </p>
+          </div>
+          <div className="kart p-6 sm:p-7">
+            <h3 className="text-[19px]">Neden AYT daha değerli?</h3>
+            <div className="metin mt-4 text-[15px]">
+              <p>
+                AYT&apos;de 80 soru var ama ham puanın %60&apos;ını o belirliyor; TYT&apos;de
+                120 soru var, payı %40. Yani AYT&apos;den kazanılan bir net TYT&apos;den
+                kazanılandan daha çok sıra kazandırıyor.
+              </p>
+              <p>
+                Çubukları kaydırıp dene: toplamı sabit tutup neti AYT&apos;ye taşıdığında
+                sıranın nasıl öne geçtiğini görürsün.
+              </p>
+            </div>
+            <p className="mt-5">
+              <Link href="/tercih-robotu" className="baglanti text-[15px]">
+                Bu sırayla hangi bölümler açık?
+              </Link>
+            </p>
+          </div>
+        </div>
+      </Bolum>
+
       <Bolum
         id="araclar"
         etiket="Araçlar"
@@ -33,34 +80,6 @@ export function AnaSayfaBolumleri({ kalanGun }: { kalanGun: number }) {
         </p>
       </Bolum>
 
-      <Bolum
-        etiket="Geçen yıl"
-        baslik="Bu netler nereye gitti?"
-        alt={`YKS ${SINAV_YILI}'ye ${kalanGun} gün var. Aşağıdaki bantlar 2025 yerleştirme sonuçlarından; bu yılın sonucu farklı olur.`}
-      >
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <SiraKaydirici />
-          <div className="kart p-6 sm:p-7">
-            <h3 className="text-[19px]">Tabloyu nasıl okumalı?</h3>
-            <div className="metin mt-4 text-[15px]">
-              <p>
-                Buradaki sayılar bir söz değil, geçen yılın fotoğrafı. 78 net yapan bir aday
-                geçen yıl yaklaşık 110.000. sıradaydı; aynı net bu yıl 90.000 de olabilir
-                130.000 de. Sınavın zorluğu ve aday sayısı her yıl bandı kaydırıyor.
-              </p>
-              <p>
-                O yüzden hedefini sıra üzerinden değil net üzerinden kur. Net senin
-                kontrolünde, sıra değil.
-              </p>
-            </div>
-            <p className="mt-5">
-              <Link href="/bolum-kac-net" className="baglanti text-[15px]">
-                Bölüme göre gereken neti ara
-              </Link>
-            </p>
-          </div>
-        </div>
-      </Bolum>
 
       <Bolum
         etiket="Sık sorulanlar"

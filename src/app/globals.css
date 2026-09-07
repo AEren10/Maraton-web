@@ -1129,3 +1129,17 @@ body {
     -webkit-overflow-scrolling: touch;
   }
 }
+
+@layer components {
+  .sira-sahne {
+    container-type: inline-size;
+  }
+
+  /* Kabın genişliğine bağlı: dar sütunda da tek satırda kalır. */
+  .dev-sayi {
+    font-size: clamp(44px, 19cqw, 132px);
+    line-height: 0.88;
+    white-space: nowrap;
+    text-shadow: 0 0 60px var(--brand-glow);
+  }
+}

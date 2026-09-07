@@ -8,6 +8,7 @@ import { ARACLAR, POPULER } from "@/data/araclar";
 
 const MENU = [
   { href: "/araclar", ad: "Araçlar" },
+  { href: "/net-siralama-tablosu", ad: "Sıralama" },
   { href: "/rehber", ad: "Rehber" },
   { href: "/sss", ad: "Sık sorulanlar" },
 ];

@@ -65,7 +65,7 @@ export default function AnaSayfa() {
         </div>
       </section>
 
-      <AnaSayfaBolumleri kalanGun={kalanGun} />
+      <AnaSayfaBolumleri />
     </>
   );
 }
