@@ -36,7 +36,7 @@ export function Navbar() {
               : "border border-transparent border-b-[var(--line)] bg-[var(--ink)]/70 backdrop-blur-md"
           }`}
         >
-          <Link href="/" className="flex items-baseline gap-2">
+          <Link href="/" className="flex min-h-11 items-baseline gap-2">
             <span className="text-[26px] font-bold tracking-tight" style={{ color: "var(--brand)" }}>
               Maraton
             </span>

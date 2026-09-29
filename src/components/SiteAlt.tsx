@@ -12,7 +12,7 @@ export function SiteAlt() {
               <li key={a.slug}>
                 <Link
                   href={`/${a.slug}`}
-                  className="liste-baglanti text-[14px] text-[var(--text-secondary)] hover:text-[var(--text)]"
+                  className="liste-baglanti min-h-11 text-[14px] text-[var(--text-secondary)] hover:text-[var(--text)]"
                 >
                   {a.ad}
                 </Link>
