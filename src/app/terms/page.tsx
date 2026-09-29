@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description:
     "Maraton mobil uygulamasının kullanımına, kullanıcı sorumluluklarına ve hizmet koşullarına ilişkin kısa bilgiler.",
   alternates: { canonical: "https://maratonapp.com/terms" },
+  openGraph: { url: "https://maratonapp.com/terms" },
 };
 
 export default function TermsPage() {

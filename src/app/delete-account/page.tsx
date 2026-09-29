@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description:
     "Maraton hesabınızı uygulama içinden silme veya e-posta ile hesap silme talebi gönderme adımları.",
   alternates: { canonical: "https://maratonapp.com/delete-account" },
+  openGraph: { url: "https://maratonapp.com/delete-account" },
 };
 
 export default function DeleteAccountPage() {

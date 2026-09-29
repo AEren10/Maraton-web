@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description:
     "Maraton mobil uygulamasında işlenen veriler, kullanım amaçları, hizmet sağlayıcılar ve kullanıcı hakları hakkında gizlilik politikası.",
   alternates: { canonical: "https://maratonapp.com/privacy" },
+  openGraph: { url: "https://maratonapp.com/privacy" },
 };
 
 export default function PrivacyPage() {

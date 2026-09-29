@@ -48,7 +48,7 @@ export function Navbar() {
           <nav className="hidden items-center gap-1 md:flex" aria-label="Ana menü">
             {MENU.map((m) => (
               <Link key={m.href} href={m.href}
-                className="nav-link rounded-lg px-3 py-2 text-[15px] transition-colors hover:text-[var(--text)]"
+                className="nav-link inline-flex min-h-11 items-center rounded-lg px-3 py-2 text-[15px] transition-colors hover:text-[var(--text)]"
                 data-etkin={yol.startsWith(m.href) ? "evet" : "hayir"}
                 style={{ color: yol.startsWith(m.href) ? "var(--text)" : "var(--text-secondary)" }}>
                 {m.ad}
@@ -60,7 +60,7 @@ export function Navbar() {
           </nav>
 
           <button
-            className="kucuk-btn flex items-center gap-2 rounded-lg border border-[var(--line)] px-3 py-2 text-[14px] md:hidden"
+            className="kucuk-btn flex min-h-11 items-center gap-2 rounded-lg border border-[var(--line)] px-3 py-2 text-[14px] md:hidden"
             aria-expanded={acik}
             aria-label={acik ? "Menüyü kapat" : "Menüyü aç"}
             onClick={() => setAcik((a) => !a)}

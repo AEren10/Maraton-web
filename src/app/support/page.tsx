@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description:
     "Maraton mobil uygulaması için teknik destek, hesap işlemleri ve gizlilik talepleri hakkında iletişim bilgileri.",
   alternates: { canonical: "https://maratonapp.com/support" },
+  openGraph: { url: "https://maratonapp.com/support" },
 };
 
 export default function SupportPage() {
