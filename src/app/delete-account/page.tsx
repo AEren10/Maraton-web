@@ -32,8 +32,8 @@ export default function DeleteAccountPage() {
           Uygulamayı kaldırdıysanız veya uygulamaya erişemiyorsanız,
           hesabınızda kullandığınız e-posta adresinden
           {" "}
-          <a className="baglanti inline-flex min-h-11 items-center" href="mailto:destek@maratonapp.com">
-            destek@maratonapp.com
+          <a className="baglanti inline-flex min-h-11 items-center" href="mailto:destekmaraton@gmail.com">
+            destekmaraton@gmail.com
           </a>
           {" "}adresine silme talebi gönderin.
         </p>
@@ -43,9 +43,9 @@ export default function DeleteAccountPage() {
         </p>
         <a
           className="btn btn-brand mt-6 min-h-11 w-full sm:w-auto"
-          href="mailto:destek@maratonapp.com?subject=Maraton%20Hesap%20Silme%20Talebi"
+          href="mailto:destekmaraton@gmail.com?subject=Hesap%20Silme%20Talebi"
         >
-          Hesap Silme Talebi Gönder
+          destekmaraton@gmail.com adresine e-posta gönder
         </a>
       </YasalBolum>
 

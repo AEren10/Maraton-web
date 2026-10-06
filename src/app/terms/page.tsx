@@ -61,8 +61,8 @@ export default function TermsPage() {
           </Link>
           {" "}geçerlidir. Sorularınız için
           {" "}
-          <a className="baglanti inline-flex min-h-11 items-center" href="mailto:destek@maratonapp.com">
-            destek@maratonapp.com
+          <a className="baglanti inline-flex min-h-11 items-center" href="mailto:destekmaraton@gmail.com">
+            destekmaraton@gmail.com
           </a>
           {" "}adresine yazabilirsiniz.
         </p>

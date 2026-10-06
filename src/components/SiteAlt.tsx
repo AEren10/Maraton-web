@@ -46,10 +46,10 @@ export function SiteAlt() {
         <address className="mt-6 not-italic text-[14px] text-[var(--text-muted)]">
           Destek: {" "}
           <a
-            href="mailto:destek@maratonapp.com"
+            href="mailto:destekmaraton@gmail.com"
             className="baglanti inline-flex min-h-11 items-center"
           >
-            destek@maratonapp.com
+            destekmaraton@gmail.com
           </a>
         </address>
 

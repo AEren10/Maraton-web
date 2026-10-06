@@ -20,14 +20,14 @@ export default function SupportPage() {
         <p>
           Destek için
           {" "}
-          <a className="baglanti inline-flex min-h-11 items-center" href="mailto:destek@maratonapp.com">
-            destek@maratonapp.com
+          <a className="baglanti inline-flex min-h-11 items-center" href="mailto:destekmaraton@gmail.com">
+            destekmaraton@gmail.com
           </a>
           {" "}adresini kullanın. Sorununuzu daha hızlı inceleyebilmemiz için
           mesajınıza uygulama sürümünü, cihaz modelini ve sorunun kısa bir
           açıklamasını ekleyebilirsiniz.
         </p>
-        <a className="btn btn-brand mt-6 min-h-11 w-full sm:w-auto" href="mailto:destek@maratonapp.com">
+        <a className="btn btn-brand mt-6 min-h-11 w-full sm:w-auto" href="mailto:destekmaraton@gmail.com">
           Destek Ekibine Yaz
         </a>
       </YasalBolum>

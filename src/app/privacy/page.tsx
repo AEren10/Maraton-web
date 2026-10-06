@@ -21,8 +21,8 @@ export default function PrivacyPage() {
         <p>
           Maraton uygulamasıyla veya bu politikayla ilgili sorularınız için
           {" "}
-          <a className="baglanti inline-flex min-h-11 items-center" href="mailto:destek@maratonapp.com">
-            destek@maratonapp.com
+          <a className="baglanti inline-flex min-h-11 items-center" href="mailto:destekmaraton@gmail.com">
+            destekmaraton@gmail.com
           </a>
           {" "}adresine ulaşabilirsiniz.
         </p>
@@ -93,8 +93,8 @@ export default function PrivacyPage() {
           isteme ve verilerinizin silinmesini talep etme hakkınız vardır. Bu
           talepler için
           {" "}
-          <a className="baglanti inline-flex min-h-11 items-center" href="mailto:destek@maratonapp.com">
-            destek@maratonapp.com
+          <a className="baglanti inline-flex min-h-11 items-center" href="mailto:destekmaraton@gmail.com">
+            destekmaraton@gmail.com
           </a>
           {" "}adresine yazabilirsiniz.
         </p>

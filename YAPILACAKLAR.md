@@ -6,7 +6,7 @@
 - [ ] E-posta üzerinden hesap silme taleplerinin gerçek tamamlanma süresini netleştir; doğrulandıktan sonra `/delete-account` sayfasına ekle.
 - [ ] Apple Developer hesabındaki gerçek Team ID'yi edin. Ardından `/.well-known/apple-app-site-association` dosyasını `com.ahmeterensiranli.maraton` uygulaması ve `/referral/*`, `/friend/*`, `/group/*` yolları için oluştur.
 - [ ] Google Play Console'daki **App signing key certificate** SHA-256 parmak izini edin. Upload veya debug anahtarı kullanmadan `/.well-known/assetlinks.json` dosyasını `com.ahmeterensiranli.maraton` paketi için oluştur.
-- [ ] `destek@maratonapp.com` adresinin e-posta alabildiğini doğrula.
+- [ ] `destekmaraton@gmail.com` adresinin e-posta alabildiğini doğrula.
 - [ ] `.well-known` dosyaları eklendikten sonra canlı HTTPS alan adında redirect olmadan `200`, geçerli JSON ve `Content-Type: application/json` döndüklerini doğrula.
 
 ## Deployment sonrası kontrol
