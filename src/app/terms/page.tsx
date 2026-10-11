@@ -15,7 +15,7 @@ export default function TermsPage() {
     <YasalSayfa
       baslik="Maraton Kullanım Koşulları"
       aciklama="Bu koşullar, eğitim ve çalışma takibi için sunulan Maraton mobil uygulamasının kullanımına ilişkin temel kuralları açıklar."
-      guncelleme="30 Eylül 2026"
+      guncelleme="11 Ekim 2026"
     >
       <YasalBolum baslik="Hizmetin kapsamı">
         <p>
@@ -30,6 +30,19 @@ export default function TermsPage() {
           Hesabınızın ve giriş bilgilerinizin güvenliğinden siz sorumlusunuz.
           Uygulama hukuka aykırı, yanıltıcı, başkalarının haklarını ihlal eden
           veya hizmetin çalışmasını bozacak biçimde kullanılamaz.
+        </p>
+      </YasalBolum>
+
+      <YasalBolum baslik="Kullanıcı içeriği ve sıfır tolerans">
+        <p>
+          Kullanıcı adı, profil fotoğrafı ve grup adı gibi diğer kullanıcıların
+          görebileceği içeriklerde hakaret, taciz, nefret söylemi, cinsel
+          içerik, şiddet veya kişisel bilgi paylaşımına sıfır tolerans
+          uygulanır. Uygunsuz bir içeriği uygulama içinden bildirebilir veya
+          destekmaraton@gmail.com adresine yazabilirsiniz. Bildirimler en geç
+          24 saat içinde incelenir; ihlal eden içerik kaldırılır ve ihlal
+          tekrarlanırsa hesap kapatılır. Rahatsız olduğunuz bir kullanıcıyı
+          uygulama içinden engelleyebilirsiniz.
         </p>
       </YasalBolum>
 
