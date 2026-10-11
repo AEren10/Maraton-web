@@ -97,13 +97,15 @@ export function AnaSayfaBolumleri() {
       </Bolum>
 
       <Bolum etiket="Maraton">
-        <div className="max-w-[720px]">
-          <MaratonBolumu />
-          <BeklemeListesi
-            kaynak="ana-sayfa"
-            baslik="Sıralama verileri güncellenince haber verelim mi?"
-            metin="Bu sitedeki bütün sıra ve net karşılıkları 2025 yerleştirmesine dayanıyor. Yeni yılın sonuçları açıklandığında sayılar değişecek; güncellendiğinde tek bir e-posta gönderiyoruz. Bir de ÖSYM başvuru ve tercih tarihlerini hatırlatıyoruz."
-          />
+        <div>
+          <MaratonBolumu detayLinki />
+          <div className="mt-8 max-w-[720px]">
+            <BeklemeListesi
+              kaynak="ana-sayfa"
+              baslik="Sıralama verileri güncellenince haber verelim mi?"
+              metin="Bu sitedeki bütün sıra ve net karşılıkları 2025 yerleştirmesine dayanıyor. Yeni yılın sonuçları açıklandığında sayılar değişecek; güncellendiğinde tek bir e-posta gönderiyoruz. Bir de ÖSYM başvuru ve tercih tarihlerini hatırlatıyoruz."
+            />
+          </div>
         </div>
       </Bolum>
     </>

@@ -1,10 +1,15 @@
 import Link from "next/link";
 import { ARACLAR } from "@/data/araclar";
+import { MarkaLogo } from "./MarkaLogo";
 
 export function SiteAlt() {
   return (
     <footer className="border-t border-[var(--line)]">
       <div className="sinir py-12">
+        <Link href="/" className="mb-8 inline-flex min-h-11 items-center">
+          <MarkaLogo kompakt />
+        </Link>
+
         <nav aria-label="Araçlar">
           <p className="etiket">Araçlar</p>
           <ul className="mt-3 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">

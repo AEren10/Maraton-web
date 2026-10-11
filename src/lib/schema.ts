@@ -5,7 +5,7 @@ export const ORGANIZASYON = {
   "@id": `${SITE}/#organizasyon`,
   name: "Maraton",
   url: SITE,
-  logo: { "@type": "ImageObject", url: `${SITE}/icon` },
+  logo: { "@type": "ImageObject", url: `${SITE}/brand/app-icon.png` },
   description:
     "YKS hazırlığı için net hesaplama, puan tahmini ve hedef net rotası araçları.",
 };
@@ -24,13 +24,23 @@ export const kirintiYolu = (parcalar: { ad: string; yol: string }[]) => ({
 export const yazilimUygulamasi = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
+  "@id": `${SITE}/maraton#uygulama`,
   name: "Maraton",
+  url: `${SITE}/maraton`,
   applicationCategory: "EducationalApplication",
   operatingSystem: "iOS, Android",
   inLanguage: "tr-TR",
   publisher: ORGANIZASYON,
   description:
-    "YKS hazırlığında günlük çalışma rotası: deneme sonrası güncellenen plan, konu borcu takibi ve hedef geri sayımı.",
+    "YKS öğrencileri için günlük çalışma rotası, TYT ve AYT deneme takibi, net grafiği, yanlış defteri ve ders ders analiz.",
+  featureList: [
+    "Hedefe ve deneme sonuçlarına göre günlük çalışma rotası",
+    "TYT, AYT ve branş denemelerinde ders ders analiz",
+    "Net grafiği ve tahmini sıralama",
+    "Fotoğraflı yanlış defteri ve aralıklı tekrar",
+    "Haftalık çalışma raporu",
+  ],
+  image: `${SITE}/brand/app-icon.png`,
 };
 
 export const nasilYapilir = (

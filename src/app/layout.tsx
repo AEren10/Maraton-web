@@ -1,23 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Figtree, Lora } from "next/font/google";
 import { Olcum } from "@/components/Olcum";
 import { SiteAlt } from "@/components/SiteAlt";
 import { Navbar } from "@/components/Navbar";
 import { SayfaGecisi } from "@/components/SayfaGecisi";
+import { archivo, bricolage, unbounded } from "./fonts";
 import "./globals.css";
-
-const govde = Figtree({
-  subsets: ["latin", "latin-ext"],
-  display: "swap",
-  variable: "--font-govde",
-});
-
-const baslik = Lora({
-  subsets: ["latin", "latin-ext"],
-  display: "swap",
-  weight: ["500", "600", "700"],
-  variable: "--font-baslik",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://maratonapp.com"),
@@ -39,13 +26,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0E1015",
+  themeColor: "#1C1C23",
   colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr" className={`${govde.variable} ${baslik.variable}`}>
+    <html lang="tr" className={`${archivo.variable} ${bricolage.variable} ${unbounded.variable}`}>
       <body>
         <Navbar />
         <main>

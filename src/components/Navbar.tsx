@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { ARACLAR, POPULER } from "@/data/araclar";
+import { MarkaLogo } from "./MarkaLogo";
 
 const MENU = [
   { href: "/araclar", ad: "Araçlar" },
@@ -36,10 +37,8 @@ export function Navbar() {
               : "border border-transparent border-b-[var(--line)] bg-[var(--ink)]/70 backdrop-blur-md"
           }`}
         >
-          <Link href="/" className="flex min-h-11 items-baseline gap-2">
-            <span className="text-[26px] font-bold tracking-tight" style={{ color: "var(--brand)" }}>
-              Maraton
-            </span>
+          <Link href="/" className="flex min-h-11 items-center gap-2">
+            <MarkaLogo oncelikli />
             <span className="hidden text-[13px] text-[var(--text-muted)] sm:inline">
               YKS rehberi
             </span>

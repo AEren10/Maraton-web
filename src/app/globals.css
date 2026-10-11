@@ -1,26 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #0e1015;
-  --ink-2: #14161c;
-  --surface: #181b22;
-  --surface-elevated: #22262f;
-  --line: rgba(255, 255, 255, 0.09);
-  --line-soft: rgba(255, 255, 255, 0.055);
+  --ink: #1c1c23;
+  --ink-2: #212129;
+  --surface: #28282f;
+  --surface-elevated: #35353b;
+  --line: #3a3a42;
+  --line-soft: rgba(236, 232, 228, 0.075);
 
-  --brand: #ec3347;
-  --brand-pressed: #c92839;
-  --brand-soft: rgba(236, 51, 71, 0.14);
-  --brand-glow: rgba(236, 51, 71, 0.45);
-  --brand-light: #ff6b78;
+  --brand: #e5343f;
+  --brand-pressed: #a81c26;
+  --brand-soft: rgba(229, 52, 63, 0.14);
+  --brand-glow: rgba(229, 52, 63, 0.42);
+  --brand-light: #ff6a72;
 
   --up: #30d98a;
   --down: #a7b7c5;
   --warn: #f7c44a;
 
-  --text: #f5f7fa;
-  --text-secondary: #b3bcc8;
-  --text-muted: #838d9b;
+  --text: #ece8e4;
+  --text-secondary: #b0adb5;
+  --text-muted: #a3a0ab;
   --text-on-brand: #ffffff;
 
   --turkce: #58a7fa;
@@ -138,16 +138,16 @@ h2 {
 }
 
 h1, h2, h3 {
-  font-family: var(--font-baslik), Georgia, serif;
-  font-weight: 600;
-  letter-spacing: -0.015em;
+  font-family: var(--font-baslik), system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
   line-height: 1.2;
 }
 
 .sayi {
-  font-family: var(--font-govde), system-ui, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--font-baslik), system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.035em;
   font-variant-numeric: tabular-nums;
 }
 
@@ -164,6 +164,56 @@ h1, h2, h3 {
 .kart-sayi {
   font-size: 32px;
   line-height: 1.05;
+}
+
+.maraton-tanitim {
+  background: radial-gradient(70% 75% at 100% 0%, rgba(229, 52, 63, 0.16), transparent 72%), var(--surface);
+}
+
+.app-ekranlari {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: clamp(8px, 1.5vw, 16px);
+  min-width: 0;
+}
+
+.app-telefon {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: clamp(12px, 2vw, 22px);
+  background: #101015;
+  box-shadow: 0 22px 50px -34px rgba(0, 0, 0, 0.85);
+}
+
+.app-telefon[data-orta="evet"] {
+  transform: translateY(-14px);
+}
+
+@media (max-width: 639px) {
+  .app-ekranlari {
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    grid-auto-columns: min(68vw, 240px);
+    align-items: start;
+    overflow-x: auto;
+    margin-inline: -6px;
+    padding: 8px 6px 18px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .app-ekranlari::-webkit-scrollbar {
+    display: none;
+  }
+
+  .app-telefon {
+    scroll-snap-align: start;
+  }
+
+  .app-telefon[data-orta="evet"] {
+    transform: translateY(-8px);
+  }
 }
 
 .bolum {

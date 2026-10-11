@@ -7,7 +7,7 @@ import { HeroIkonlari } from "@/components/HeroIkonlari";
 import { RotaSahnesi } from "@/components/grafik/RotaSahnesi";
 import { ARACLAR } from "@/data/araclar";
 import { kalanGun as hesapla, SINAV_YILI } from "@/lib/sinav";
-import { websitesi } from "@/lib/schema";
+import { websitesi, yazilimUygulamasi } from "@/lib/schema";
 
 export const revalidate = 21600;
 
@@ -27,6 +27,7 @@ export default function AnaSayfa() {
   return (
     <>
       <JsonLd data={websitesi} />
+      <JsonLd data={yazilimUygulamasi} />
 
       <section className="sinir relative flex min-h-[calc(100svh-4rem)] flex-col justify-center py-8">
         <HeroIkonlari />

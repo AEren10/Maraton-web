@@ -8,9 +8,9 @@ export default function manifest(): MetadataRoute.Manifest {
       "YKS net hesaplama, puan tahmini, sıralama tablosu ve hedef net rotası araçları.",
     start_url: "/",
     display: "standalone",
-    background_color: "#0E1015",
-    theme_color: "#0E1015",
+    background_color: "#1C1C23",
+    theme_color: "#1C1C23",
     lang: "tr",
-    icons: [{ src: "/icon", sizes: "64x64", type: "image/png" }],
+    icons: [{ src: "/brand/app-icon.png", sizes: "1024x1024", type: "image/png" }],
   };
 }
