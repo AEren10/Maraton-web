@@ -10,10 +10,10 @@ export function MarkaLogo({
   return (
     <span className="inline-flex items-center gap-2.5" aria-label="Maraton">
       <Image
-        src="/brand/maraton-mark.png"
+        src="/brand/maraton-mark-v2.png"
         alt=""
-        width={62}
-        height={29}
+        width={76}
+        height={30}
         className={kompakt ? "h-[22px] w-auto" : "h-[26px] w-auto"}
         priority={oncelikli}
       />

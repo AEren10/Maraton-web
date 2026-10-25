@@ -11,6 +11,6 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#1C1C23",
     theme_color: "#1C1C23",
     lang: "tr",
-    icons: [{ src: "/brand/app-icon.png", sizes: "1024x1024", type: "image/png" }],
+    icons: [{ src: "/brand/maraton-icon-v2.png", sizes: "1024x1024", type: "image/png" }],
   };
 }

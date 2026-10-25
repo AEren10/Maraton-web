@@ -5,7 +5,7 @@ export const ORGANIZASYON = {
   "@id": `${SITE}/#organizasyon`,
   name: "Maraton",
   url: SITE,
-  logo: { "@type": "ImageObject", url: `${SITE}/brand/app-icon.png` },
+  logo: { "@type": "ImageObject", url: `${SITE}/brand/maraton-icon-v2.png` },
   description:
     "YKS hazırlığı için net hesaplama, puan tahmini ve hedef net rotası araçları.",
 };
@@ -40,7 +40,7 @@ export const yazilimUygulamasi = {
     "Fotoğraflı yanlış defteri ve aralıklı tekrar",
     "Haftalık çalışma raporu",
   ],
-  image: `${SITE}/brand/app-icon.png`,
+  image: `${SITE}/brand/maraton-icon-v2.png`,
 };
 
 export const nasilYapilir = (
